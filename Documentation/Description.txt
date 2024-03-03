@@ -1,0 +1,3 @@
+
+VTool ("Validation Toolbox") is a Matlab tool suite authored by Pierino Bonanni that provides efficient import, analysis, and plotting of simulation and field data.  It is particularly suited for analysis tasks involving large numbers of signals with a diversity of sampling rates, file formats, and variations in signal naming.  It provides easy concatenation, segmenting, and comparison of data files, and permits time series, spectral, and statistical analyses through a scriptable set of standard functions. 
+
