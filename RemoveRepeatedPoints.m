@@ -182,9 +182,9 @@ for k = 1:length(groups)
       ROWS = Members{i};  % list of rows to combine
       DataOut.(group).Values(row,:) = fun(Data.(group).Values(ROWS,:));
 
-      % Check if any signal differences exist
+      % Check if any signal differences exist, treating repeated NaNs as equal
       X = Data.(group).Values(ROWS,:); n=size(X,1);
-      if any(any(X ~= repmat(X(1,:),n,1))), flagD=true; end
+      if ~isequaln(X, repmat(X(1,:),n,1)), flagD=true; end
     end
   end
 end
@@ -209,7 +209,7 @@ info.Members = Members;
 
 if nargout < 2
   fprintf('Input data length:  %d\n', N);
-  fprintf('Output data length: %d\n', N);
+  fprintf('Output data length: %d\n', Nout);
   fprintf('Number of non-unique time points: %d\n', nsets);
   fprintf('Total detected repetitions:       %d\n', nreps);
   fprintf('Differences detected? ');
