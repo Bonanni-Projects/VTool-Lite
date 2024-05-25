@@ -24,7 +24,7 @@ function varargout = ReconcileUnits(varargin)
 % object(s) are updated and the 'success' flag is set to true if this 
 % process succeeds.  If a conflict is detected, i.e., differing units 
 % representing the same channel, the 'success' flag is set to false 
-% and the input objects are returned unchanged.  
+% and the input objects are returned unchanged. 
 %
 % P.G. Bonanni
 % 8/8/21

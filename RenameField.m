@@ -17,6 +17,8 @@ function S = RenameField(S,oldfields,newfields)
 % (e.g., 'oldname' and 'newname') or equal-length cell arrays of strings 
 % specifying the old and corresponding new field names. 
 %
+% See also "RenameLayer". 
+%
 % P.G. Bonanni
 % 3/30/18
 
@@ -24,9 +26,13 @@ function S = RenameField(S,oldfields,newfields)
 % Distributed under GNU General Public License v2.0.
 
 
-% Check 'Data' argument
+% Check arguments
 if ~isstruct(S)
   error('First input must be a structure or structure array.')
+elseif ~ischar(oldfields) && ~iscellstr(oldfields)
+  error('Input ''oldfields'' is invalid.')
+elseif ~ischar(newfields) && ~iscellstr(newfields)
+  error('Input ''newfields'' is invalid.')
 end
 
 % Make cell arrays if single strings provided

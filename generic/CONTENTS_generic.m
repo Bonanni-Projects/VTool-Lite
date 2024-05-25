@@ -60,6 +60,7 @@
 %   AddMissingLayers          - Coordinate name layers among two or more datasets.
 %   CopyNamesFromModel        - Copy all names from a model dataset or signal group.
 %   ReplaceNameOnLayer        - Replace a signal name in a dataset or signal group.
+%   RenameLayer               - Rename one or more name layers.
 %   RemoveNameLayer           - Remove one or more name layers.
 %   RemoveLayersExcept        - Remove extra name layers.
 %   PrintNameTables           - Print NameTables.xlsx to a text file.
