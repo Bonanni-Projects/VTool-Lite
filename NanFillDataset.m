@@ -1,25 +1,33 @@
-function Data = NanFillDataset(Data,varargin)
+function [Data1,DataC,DataX] = NanFillDataset(Data,varargin)
 
-% NANFILLDATASET - Fill sampling holes in a dataset.
+% NANFILLDATASET - Regularize time and fill sampling holes in a dataset.
 % Data1 = NanFillDataset(Data)
 % Data1 = NanFillDataset(Data,Ts,Trange)
 % Data1 = NanFillDataset(Data,Trange)
 % Data1 = NanFillDataset(Data,Ts)
+% [Data1,DataC,DataX] = NanFillDataset(...)
 %
-% Performs time-grid regularization and nan-filling on a dataset to 
-% repair irregularly placed and/or missing time samples. Determines 
-% the dominant sample time, or explicit sample time 'Ts' if provided, 
-% then removes samples deviating from the grid and fills missing samples 
-% with NaN values. The result is a dataset with uniform time sampling. 
-% Optional 'Trange' is a 1x2 vector specifying the desired time range 
-% in compatible time units, defaulting to the original dataset time 
-% range if not provided. 
+% Performs time-grid regularization and nan-filling on a dataset to repair 
+% irregularly placed and/or missing time samples. Determines the dominant 
+% sample time, or explicit sample time 'Ts' if provided, to define a regular 
+% time grid starting from the dataset's initial time value and spanning the 
+% represented time range. It then removes samples deviating from the grid and 
+% fills missing sample positions with NaN values. The result is dataset 'Data1' 
+% with uniform time sampling. Input 'Trange' is a 1x2 vector specifying an 
+% alternate time range in compatible time units, used to override the dataset's 
+% original time range if desired. 
 %
-% Note: For best results, all time values should be evenly divisible 
-% by the dominant or specified sample time. On datasets with absolute 
-% time units, time values in a vector 't' can be rounded to whole-number 
+% Also returned are dataset 'DataC', representing a "cleaned-up" dataset after 
+% removal of irregularly placed and out-of-range samples but before nan-filling, 
+% and dataset 'DataX', containing only the errant samples. 
+%
+% The input dataset's time vector must be strictly monotonically increasing. 
+% For best results, all time values should be evenly divisible by the dominant 
+% or specified sample time after subtraction of the initial time offset. For 
+% datasets with absolute time units, appropriate rounding is recommended: as 
+% an example, time values in a vector 't' can be rounded to whole-number 
 % seconds using "dateshift(t,'start','sec','nearest')", and rounding to 
-% minutes, hours, etc. follows similarly. 
+% minutes, hours, or other units follows similarly. 
 %
 % P.G. Bonanni
 % 8/9/23
@@ -31,6 +39,9 @@ function Data = NanFillDataset(Data,varargin)
 args = varargin;  % initialize
 if length(args)>2
   error('Invalid usage.')
+elseif length(args)==2
+  Ts     = args{1};
+  Trange = args{2};
 elseif length(args)==1
   Ts = args{1};
   if numel(Ts)<2
@@ -39,9 +50,9 @@ elseif length(args)==1
     Trange = Ts;
     Ts = [];
   end
-elseif length(args)==2
-  Ts     = args{1};
-  Trange = args{2};
+elseif isempty(args)
+  Ts     = [];
+  Trange = [];
 end
 
 % Check 'Data' argument
@@ -104,19 +115,22 @@ end
 % Get data length
 N = GetDataLength(Data);
 
-% Compute sampling mask
+% Compute sampling mask and perform clean-up
 maskT = false(size(t));
 [mask,i] = ismember(Data.Time.Values,t);
 nbad = sum(~mask);  % number of unmatched samples
 if nbad > 0  % report any sampling errors
-  fprintf('Warning: %d of %d points deviate from the standard sampling schedule.\n',nbad,N);
-  Data = ApplyIndex(Data,mask);
-  i(~mask) = [];
+  fprintf('Clean-up determined %d of %d points deviate from the defined sampling schedule.\n',nbad,N);
 end
-maskT(i) = true;
+DataC = ApplyIndex(Data, mask);
+DataX = ApplyIndex(Data,~mask);
+maskT(i(mask)) = true;
+
+% Initialize
+Data1 = DataC;
 
 % List of signal groups, excluding 'Time'
-[~,groups] = GetSignalGroups(Data);
+[~,groups] = GetSignalGroups(Data1);
 groups = setdiff(groups,'Time');
 
 % Loop over groups
@@ -124,13 +138,13 @@ for k = 1:length(groups)
   group = groups{k};
 
   % Get number of signals
-  nsignals = GetNumSignals(Data.(group));
+  nsignals = GetNumSignals(Data1.(group));
 
   % Perform NaN-filling operation
-  Values = Data.(group).Values;
-  Data.(group).Values = nan(length(t),nsignals);
-  Data.(group).Values(maskT,:) = Values;
+  Values = Data1.(group).Values;
+  Data1.(group).Values = nan(length(t),nsignals);
+  Data1.(group).Values(maskT,:) = Values;
 end
 
-% Assing new time vector
-Data.Time.Values = t;
+% Assign new time vector
+Data1.Time.Values = t;

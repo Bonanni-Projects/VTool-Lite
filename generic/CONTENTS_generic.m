@@ -27,7 +27,7 @@
 %   ApplyFunction             - Apply a function to data in datasets or signal groups.
 %   BufferDataset             - Buffer a dataset into a dataset array.
 %   ConcatDatasets            - Concatenate datasets into a single dataset.
-%   NanFillDataset            - Fill sampling holes in a dataset.
+%   NanFillDataset            - Regularize time and fill sampling holes in a dataset.
 %   PadDataToLength           - Pad a dataset or dataset array to length.
 %   SequenceDatasets          - Sequence datasets contiguously in time.
 %   MergeDatasets             - Merge two or more datasets into one.

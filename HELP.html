@@ -8,7 +8,7 @@ Contents Reference
 <br>
 <TABLE border=0 width="800" cellSpacing=0 cellPadding=0>
 <TBODY>
-<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 5/24/24</address></font></TD></TR>
+<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 5/26/24</address></font></TD></TR>
 </TBODY>
 </TABLE>
 <p><small><font face="arial">
@@ -124,7 +124,7 @@ For categories, type "help vtool" or see "Contents.m".
    <a href="#name107">MergeDatasets</a>             - Merge two or more datasets into one.
    <a href="#name108">MergeSignalGroups</a>         - Merge two or more signal groups into one.
    <a href="#name109">NameTables</a>                - Open the active NameTables.xlsx file.
-   <a href="#name110">NanFillDataset</a>            - Fill sampling holes in a dataset.
+   <a href="#name110">NanFillDataset</a>            - Regularize time and fill sampling holes in a dataset.
    <a href="#name111">NullDataset</a>               - Build a null dataset from a model.
    <a href="#name112">PadDataToLength</a>           - Pad a dataset or dataset array to length.
    <a href="#name113">PadSignalsToLength</a>        - Pad a signal group or signal-group array to length.
@@ -3819,26 +3819,34 @@ For categories, type "help vtool" or see "Contents.m".
 <TR>
 <TD vAlign=top><pre><u id="name110">NanFillDataset</u></pre></TD>
 <TD><PRE>
-  NANFILLDATASET - Fill sampling holes in a dataset.
+  NANFILLDATASET - Regularize time and fill sampling holes in a dataset.
   Data1 = NanFillDataset(Data)
   Data1 = NanFillDataset(Data,Ts,Trange)
   Data1 = NanFillDataset(Data,Trange)
   Data1 = NanFillDataset(Data,Ts)
+  [Data1,DataC,DataX] = NanFillDataset(...)
  
-  Performs time-grid regularization and nan-filling on a dataset to 
-  repair irregularly placed and/or missing time samples. Determines 
-  the dominant sample time, or explicit sample time 'Ts' if provided, 
-  then removes samples deviating from the grid and fills missing samples 
-  with NaN values. The result is a dataset with uniform time sampling. 
-  Optional 'Trange' is a 1x2 vector specifying the desired time range 
-  in compatible time units, defaulting to the original dataset time 
-  range if not provided. 
+  Performs time-grid regularization and nan-filling on a dataset to repair 
+  irregularly placed and/or missing time samples. Determines the dominant 
+  sample time, or explicit sample time 'Ts' if provided, to define a regular 
+  time grid starting from the dataset's initial time value and spanning the 
+  represented time range. It then removes samples deviating from the grid and 
+  fills missing sample positions with NaN values. The result is dataset 'Data1' 
+  with uniform time sampling. Input 'Trange' is a 1x2 vector specifying an 
+  alternate time range in compatible time units, used to override the dataset's 
+  original time range if desired. 
  
-  Note: For best results, all time values should be evenly divisible 
-  by the dominant or specified sample time. On datasets with absolute 
-  time units, time values in a vector 't' can be rounded to whole-number 
+  Also returned are dataset 'DataC', representing a "cleaned-up" dataset after 
+  removal of irregularly placed and out-of-range samples but before nan-filling, 
+  and dataset 'DataX', containing only the errant samples. 
+ 
+  The input dataset's time vector must be strictly monotonically increasing. 
+  For best results, all time values should be evenly divisible by the dominant 
+  or specified sample time after subtraction of the initial time offset. For 
+  datasets with absolute time units, appropriate rounding is recommended: as 
+  an example, time values in a vector 't' can be rounded to whole-number 
   seconds using "dateshift(t,'start','sec','nearest')", and rounding to 
-  minutes, hours, etc. follows similarly. 
+  minutes, hours, or other units follows similarly. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
 </TR>
