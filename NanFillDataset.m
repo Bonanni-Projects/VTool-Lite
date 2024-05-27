@@ -120,7 +120,7 @@ maskT = false(size(t));
 [mask,i] = ismember(Data.Time.Values,t);
 nbad = sum(~mask);  % number of unmatched samples
 if nbad > 0  % report any sampling errors
-  fprintf('Clean-up determined %d of %d points deviate from the defined sampling schedule.\n',nbad,N);
+  fprintf('Clean-up found %d of %d points deviate from the defined sampling schedule.\n',nbad,N);
 end
 DataC = ApplyIndex(Data, mask);
 DataX = ApplyIndex(Data,~mask);
