@@ -21,6 +21,9 @@ function PlotDataset(varargin)
 %                   spectral plot types is specified). 
 %    'single'    -  directs that all plots should be full-window 
 %                   (i.e., no subplots). 
+%    'nrows=N'   -  where N is a positive integer, specifies the 
+%                   number of plot rows per figure window (ignored 
+%                   if the 'single' option is specified). 
 %    'nolabels'  -  option to suppress display of signal names 
 %                   within plot axes. 
 %    'ppt'       -  saves all plot windows to a PowerPoint file 
@@ -148,6 +151,18 @@ if ~isempty(args)  % look for a 1x2 vector or []
   end
 end
 
+% Check for 'nrows=...' argument
+nrows = [];  % initialize
+if ~isempty(args)  % look for the pattern
+  mask = cellfun(@(x)~isempty(regexp(x,'^nrows=\d+$','match')),args);
+  if any(mask)
+    i = find(mask,1,'first');
+    str = args{i};
+    C=regexp(str,'nrows=(\d)','tokens'); nrows=str2double(C{1});
+    args(i) = [];
+  end
+end
+
 % Collect remaining options arguments
 if ~isempty(args)
   if ~all(cellfun(@ischar,args)) || ...
@@ -228,7 +243,7 @@ for k = 1:length(Selections1)
   SIGNALS1 = cat(1,DATA.(GroupName));
 
   % Plot the selected signals from the master group array
-  PlotSignalGroup(TIMES,SIGNALS1,'groupname',GroupName, ...
+  PlotSignalGroup(TIMES,SIGNALS1,'groupname',GroupName,'nrows',nrows, ...
                   'titlestr',sprintf('Casename: %s',casename),'Legend',Legend, ...
                   'OptionSingle',OptionSingle,'OptionTime',OptionTime,'OptionPSD',OptionPSD, ...
                   'OptionPSDE',OptionPSDE,'OptionCOH',OptionCOH,'OptionLabels',OptionLabels,'tag',tag);
@@ -245,7 +260,7 @@ if ~isempty(names)
   GroupName = 'additional selected signals';
 
   % Plot the selected signals from the master group array
-  PlotSignalGroup(TIMES,SIGNALS,'names',names,'groupname',GroupName, ...
+  PlotSignalGroup(TIMES,SIGNALS,'names',names,'groupname',GroupName,'nrows',nrows, ...
                   'titlestr',sprintf('Casename: %s',casename),'Legend',Legend, ...
                   'OptionSingle',OptionSingle,'OptionTime',OptionTime,'OptionPSD',OptionPSD, ...
                   'OptionPSDE',OptionPSDE,'OptionCOH',OptionCOH,'OptionLabels',OptionLabels,'tag',tag);
