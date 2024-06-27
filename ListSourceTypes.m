@@ -17,7 +17,12 @@ function Tabs = ListSourceTypes(pathname)
 
 
 if nargin < 1
-  pathname = 'NameTables.xlsx';
+  pathname = which('NameTables.xlsx');
+end
+
+% Check that file exists
+if ~exist(pathname,'file')
+  error('NameTables file not found. Must be on Matlab path.')
 end
 
 % List the sheets (tabs) in the file
