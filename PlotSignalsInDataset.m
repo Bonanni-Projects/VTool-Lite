@@ -1,8 +1,11 @@
-function PlotSignalsInDataset(Data,Names,varargin)
+function PlotSignalsInDataset(obj,Names,varargin)
 
 % PLOTSIGNALSINDATASET - Plot dataset signals with user-definable grouping.
 % PlotSignalsInDataset(Data,Names)
-% PlotSignalsInDataset(Data,Names,<Option1>,<Value>,<Option2>,{Value>,...)
+% PlotSignalsInDataset(Data,Names,<Option1>,<Value>,<Option2>,<Value>,...)
+% PlotSignalsInDataset(DATA, ...)
+% PlotSignalsInDataset(Signals, ...)
+% PlotSignalsInDataset(SIGNALS, ...)
 %
 % Plots selected signals from a dataset with user-definable grouping 
 % of signals within subplots.  Input 'Data' is a scalar dataset, and 
@@ -22,6 +25,15 @@ function PlotSignalsInDataset(Data,Names,varargin)
 % Null signal names ('') are permitted in the 'Names' array, and 
 % result in the corresponding signal being omitted from the plot. 
 %
+% If dataset array 'DATA' is provided in place of scalar dataset 
+% 'Data', the plotting is repeated for all elements of the array. 
+% If scalar signal group 'Signals', or signal group array 'SIGNALS' 
+% is provided, these are paired with a unitless indexed time group 
+% to form an implied dataset or dataset array, respectively, and 
+% the function proceeds accordingly. 
+%
+% See also "PlotSignalsInCombination". 
+%
 % P.G. Bonanni
 % 12/5/20
 
@@ -29,10 +41,43 @@ function PlotSignalsInDataset(Data,Names,varargin)
 % Distributed under GNU General Public License v2.0.
 
 
-% Check 'Data' argument
-if numel(Data) > 1
-  error('Works for scalar datasets only.')
+% Initialize
+args = varargin;
+
+% Include a timestamped 'tag' string in 'args'. 
+% For consistency across multiple successive calls, 
+% do not replace one that is already present.
+tag = sprintf('PlotSignalsInDataset: %s', datestr(now));
+if isempty(args)
+  args = {'tag',tag};
+else
+  OptionList = args(1:2:end);
+  mask = cellfun(@ischar,OptionList);
+  OptionList = OptionList(mask);
+  if ~ismember('tag',OptionList)
+    args = [args,'tag',tag];
+  end
 end
+
+% If signal group or signal group array
+if IsSignalGroupArray(obj)  % (also applies if scalar)
+  SIGNALS = obj;
+  TIMES = BuildTimeArray(SIGNALS,'Index',[1,1],0,'','');
+  obj = struct('Time',num2cell(TIMES),'Signals',num2cell(SIGNALS));
+end
+
+% If dataset array provided
+if numel(obj) > 1
+  for k = 1:numel(obj)
+    PlotSignalsInDataset(obj(k),Names,args{:})
+  end
+  return
+end
+
+% Assume input is a dataset
+Data = obj;
+
+% Check 'Data' argument
 [flag,valid] = IsDataset(Data);
 if ~flag || ~valid
   error('Input ''Data'' is not a valid dataset.  See "IsDataset".')
@@ -94,8 +139,5 @@ SIGNALS = orderfields(SIGNALS,fields);
 [SIGNALS.Units]        = deal(Units);
 [SIGNALS.Descriptions] = deal(repmat({''},nrows,1));
 
-% Set a tag string with a timestamp
-tag = sprintf('PlotSignalsInDataset: %s', datestr(now));
-
 % Plot the signal group array, passing all options
-PlotSignalGroup(Time,SIGNALS,varargin{:},'tag',tag)
+PlotSignalGroup(Time,SIGNALS,args{:})

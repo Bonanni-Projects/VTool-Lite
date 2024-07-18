@@ -8,7 +8,7 @@ Contents Reference
 <br>
 <TABLE border=0 width="800" cellSpacing=0 cellPadding=0>
 <TBODY>
-<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 6/27/24</address></font></TD></TR>
+<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 7/18/24</address></font></TD></TR>
 </TBODY>
 </TABLE>
 <p><small><font face="arial">
@@ -98,82 +98,85 @@ For categories, type "help vtool" or see "Contents.m".
    <a href="#name81">FindResultsPathnames</a>      - Find result files in a folder and its subfolders.
    <a href="#name82">GetDataLength</a>             - Get data length(s) in a dataset, signal group, etc.
    <a href="#name83">GetDefaultNames</a>           - Get default signal names from a signal group or dataset.
-   <a href="#name84">GetLayers</a>                 - List of name layers in a dataset or signal group.
-   <a href="#name85">GetNames</a>                  - Get names from a name layer or signal channel.
-   <a href="#name86">GetNamesMatrix</a>            - Get names matrix for a signal group or dataset.
-   <a href="#name87">GetNumSignals</a>             - Get number of signals in a signal group, dataset, etc.
-   <a href="#name88">GetParam</a>                  - Return a VTool configuration parameter.
-   <a href="#name89">GetSampleTime</a>             - Get sample time from a dataset or a Time group.
-   <a href="#name90">GetSignal</a>                 - Extract a signal from a signal group or dataset.
-   <a href="#name91">GetSignalGroups</a>           - Get signal groups and group names.
-   <a href="#name92">GetTime</a>                   - Extract the time vector from a dataset.
-   <a href="#name93">IsDataset</a>                 - Identify and check a dataset for validity.
-   <a href="#name94">IsDatasetArray</a>            - Identify and check a dataset array for validity.
-   <a href="#name95">IsFileType</a>                - Flag filenames belonging to a specified file type.
-   <a href="#name96">IsSarray</a>                  - Identify and check an S-array for validity.
-   <a href="#name97">IsSignalGroup</a>             - Identify and check a signal group for validity.
-   <a href="#name98">IsSignalGroupArray</a>        - Identify and check a signal group array for validity.
-   <a href="#name99">Layer2Source</a>              - Source string corresponding to a name layer.
-   <a href="#name100">LimitTimeRange</a>            - Limit time range of a dataset.
-   <a href="#name101">LinkAxes</a>                  - Link axes after plotting.
-   <a href="#name102">ListSourceTypes</a>           - List the source types in "NameTables.xlsx".
-   <a href="#name103">MakeSarray</a>                - Make an S-array from signal data.
-   <a href="#name104">MakeSarrayFile</a>            - Make an S-array .mat file from signal data.
-   <a href="#name105">MakeVtlFile</a>               - Make a .vtl file from time-synchronized data.
-   <a href="#name106">MatchSignalToRef</a>          - Match a signal to a reference signal.
-   <a href="#name107">MergeDatasets</a>             - Merge two or more datasets into one.
-   <a href="#name108">MergeSignalGroups</a>         - Merge two or more signal groups into one.
-   <a href="#name109">NameTables</a>                - Open the active NameTables.xlsx file.
-   <a href="#name110">NanFillDataset</a>            - Regularize time and fill sampling holes in a dataset.
-   <a href="#name111">NullDataset</a>               - Build a null dataset from a model.
-   <a href="#name112">PadDataToLength</a>           - Pad a dataset or dataset array to length.
-   <a href="#name113">PadSignalsToLength</a>        - Pad a signal group or signal-group array to length.
-   <a href="#name114">PlotBinnedSequences</a>       - Plot raw sequences, segregated by bin.
-   <a href="#name115">PlotConcatenatedArrays</a>    - Plot concatenated signal group arrays.
-   <a href="#name116">PlotDataset</a>               - Plot and analyze signals from one or more datasets.
-   <a href="#name117">PlotLtStats</a>               - Plot long-time (min-max-mean) stats.
-   <a href="#name118">PlotMeanStats</a>             - Plot mean-value stats.
-   <a href="#name119">PlotPsdStats</a>              - Plot power-spectral-density stats.
-   <a href="#name120">PlotSignalGroup</a>           - Plot a signal group or signal group array.
-   <a href="#name121">PlotSignalsInDataset</a>      - Plot dataset signals with user-definable grouping.
-   <a href="#name122">PlotStStats</a>               - Plot short-time stats.
-   <a href="#name123">PrintNameTables</a>           - Print NameTables.xlsx to a text file.
-   <a href="#name124">ReadMasterLookup</a>          - Read MASTER lookup table.
-   <a href="#name125">ReadSarrayFile</a>            - Read signal data from an S-array file.
-   <a href="#name126">ReadSourceTab</a>             - Read a "source tab" from "NameTables.xlsx".
-   <a href="#name127">ReadXlsFile</a>               - Read signal data from a spreadsheet file.
-   <a href="#name128">RebuildDataset</a>            - Rebuild a dataset based on NameTables.
-   <a href="#name129">RebuildDatasetFromModel</a>   - Rebuild a dataset based on a model.
-   <a href="#name130">ReconcileUnits</a>            - Reconcile units across datasets or signal groups.
-   <a href="#name131">RegroupByDimension</a>        - Regroup a dataset by signal dimension.
-   <a href="#name132">RemoveFromGroup</a>           - Remove one or more signals from a signal group.
-   <a href="#name133">RemoveGroupsExcept</a>        - Remove extra signal groups.
-   <a href="#name134">RemoveLayersExcept</a>        - Remove extra name layers.
-   <a href="#name135">RemoveNameLayer</a>           - Remove one or more name layers.
-   <a href="#name136">RemoveRepeatedPoints</a>      - Remove repeated time points from a dataset.
-   <a href="#name137">RenameField</a>               - Rename signal groups, name layers, or fields.
-   <a href="#name138">RenameLayer</a>               - Rename one or more name layers.
-   <a href="#name139">ReorderFields</a>             - Re-order fields to standard order.
-   <a href="#name140">ReplaceDescription</a>        - Replace a description string in a dataset or signal group.
-   <a href="#name141">ReplaceNameOnLayer</a>        - Replace a signal name in a dataset or signal group.
-   <a href="#name142">ReplaceSignalInDataset</a>    - Replace a signal in a dataset.
-   <a href="#name143">ReplaceSignalInGroup</a>      - Replace a signal in a signal group.
-   <a href="#name144">ReplaceUnits</a>              - Replace a units string in a dataset or signal group.
-   <a href="#name145">ResampleDataset</a>           - Resample a dataset.
-   <a href="#name146">RunBatchFunction</a>          - Run a batch function on one or more data files.
-   <a href="#name147">SampleAndHold</a>             - Sample and hold signals in a dataset or signal group.
-   <a href="#name148">Select</a>                    - Select pathnames using a file browser.
-   <a href="#name149">SelectFromDataset</a>         - Reduce a dataset to a set of selected signals.
-   <a href="#name150">SelectFromGroup</a>           - Reduce a signal group to a set of selected signals.
-   <a href="#name151">SequenceDatasets</a>          - Sequence datasets contiguously in time.
-   <a href="#name152">SequenceTime</a>              - Generate a sequenced time array.
-   <a href="#name153">Source2Layer</a>              - Name layer corresponding to a source string.
-   <a href="#name154">SpectSignals</a>              - Compute power spectral density for a signal group.
-   <a href="#name155">UnlinkAxes</a>                - Un-link axes after plotting.
-   <a href="#name156">WeightedHistogram</a>         - Weighted histogram calculation.
-   <a href="#name157">WriteDataToCSV</a>            - Write dataset signals to a CSV file.
-   <a href="#name158">formats</a>                   - VTool file formats.
-   <a href="#name159">startup</a>                   - VTool startup script.
+   <a href="#name84">GetHandles</a>                - Return handles to axes and figures.
+   <a href="#name85">GetLayers</a>                 - List of name layers in a dataset or signal group.
+   <a href="#name86">GetNames</a>                  - Get names from a name layer or signal channel.
+   <a href="#name87">GetNamesMatrix</a>            - Get names matrix for a signal group or dataset.
+   <a href="#name88">GetNumSignals</a>             - Get number of signals in a signal group, dataset, etc.
+   <a href="#name89">GetParam</a>                  - Return a VTool configuration parameter.
+   <a href="#name90">GetSampleTime</a>             - Get sample time from a dataset or a Time group.
+   <a href="#name91">GetSignal</a>                 - Extract a signal from a signal group or dataset.
+   <a href="#name92">GetSignalGroups</a>           - Get signal groups and group names.
+   <a href="#name93">GetTime</a>                   - Extract the time vector from a dataset.
+   <a href="#name94">GroupSignalFromArray</a>      - Group a signal pulled from array elements.
+   <a href="#name95">IsDataset</a>                 - Identify and check a dataset for validity.
+   <a href="#name96">IsDatasetArray</a>            - Identify and check a dataset array for validity.
+   <a href="#name97">IsFileType</a>                - Flag filenames belonging to a specified file type.
+   <a href="#name98">IsSarray</a>                  - Identify and check an S-array for validity.
+   <a href="#name99">IsSignalGroup</a>             - Identify and check a signal group for validity.
+   <a href="#name100">IsSignalGroupArray</a>        - Identify and check a signal group array for validity.
+   <a href="#name101">Layer2Source</a>              - Source string corresponding to a name layer.
+   <a href="#name102">LimitTimeRange</a>            - Limit time range of a dataset.
+   <a href="#name103">LinkAxes</a>                  - Link axes after plotting.
+   <a href="#name104">ListSourceTypes</a>           - List the source types in "NameTables.xlsx".
+   <a href="#name105">MakeSarray</a>                - Make an S-array from signal data.
+   <a href="#name106">MakeSarrayFile</a>            - Make an S-array .mat file from signal data.
+   <a href="#name107">MakeVtlFile</a>               - Make a .vtl file from time-synchronized data.
+   <a href="#name108">MatchSignalToRef</a>          - Match a signal to a reference signal.
+   <a href="#name109">MergeDatasets</a>             - Merge two or more datasets into one.
+   <a href="#name110">MergeSignalGroups</a>         - Merge two or more signal groups into one.
+   <a href="#name111">NameTables</a>                - Open the active NameTables.xlsx file.
+   <a href="#name112">NanFillDataset</a>            - Regularize time and fill sampling holes in a dataset.
+   <a href="#name113">NullDataset</a>               - Build a null dataset from a model.
+   <a href="#name114">PadDataToLength</a>           - Pad a dataset or dataset array to length.
+   <a href="#name115">PadSignalsToLength</a>        - Pad a signal group or signal-group array to length.
+   <a href="#name116">PlotBinnedSequences</a>       - Plot raw sequences, segregated by bin.
+   <a href="#name117">PlotConcatenatedArrays</a>    - Plot concatenated signal group arrays.
+   <a href="#name118">PlotDataset</a>               - Plot and analyze signals from one or more datasets.
+   <a href="#name119">PlotLtStats</a>               - Plot long-time (min-max-mean) stats.
+   <a href="#name120">PlotMeanStats</a>             - Plot mean-value stats.
+   <a href="#name121">PlotPsdStats</a>              - Plot power-spectral-density stats.
+   <a href="#name122">PlotSignalGroup</a>           - Plot and analyze a signal group or signal group array.
+   <a href="#name123">PlotSignalsInCombination</a>  - Plot a mixed signal combination from an array.
+   <a href="#name124">PlotSignalsInDataset</a>      - Plot dataset signals with user-definable grouping.
+   <a href="#name125">PlotStStats</a>               - Plot short-time stats.
+   <a href="#name126">PrintNameTables</a>           - Print NameTables.xlsx to a text file.
+   <a href="#name127">ReadMasterLookup</a>          - Read MASTER lookup table.
+   <a href="#name128">ReadSarrayFile</a>            - Read signal data from an S-array file.
+   <a href="#name129">ReadSourceTab</a>             - Read a "source tab" from "NameTables.xlsx".
+   <a href="#name130">ReadXlsFile</a>               - Read signal data from a spreadsheet file.
+   <a href="#name131">RebuildDataset</a>            - Rebuild a dataset based on NameTables.
+   <a href="#name132">RebuildDatasetFromModel</a>   - Rebuild a dataset based on a model.
+   <a href="#name133">ReconcileUnits</a>            - Reconcile units across datasets or signal groups.
+   <a href="#name134">RegroupByDimension</a>        - Regroup a dataset by signal dimension.
+   <a href="#name135">RemoveFromGroup</a>           - Remove one or more signals from a signal group.
+   <a href="#name136">RemoveGroupsExcept</a>        - Remove extra signal groups.
+   <a href="#name137">RemoveLayersExcept</a>        - Remove extra name layers.
+   <a href="#name138">RemoveNameLayer</a>           - Remove one or more name layers.
+   <a href="#name139">RemoveRepeatedPoints</a>      - Remove repeated time points from a dataset.
+   <a href="#name140">RenameField</a>               - Rename signal groups, name layers, or fields.
+   <a href="#name141">RenameLayer</a>               - Rename one or more name layers.
+   <a href="#name142">ReorderFields</a>             - Re-order fields to standard order.
+   <a href="#name143">ReplaceDescription</a>        - Replace a description string in a dataset or signal group.
+   <a href="#name144">ReplaceNameOnLayer</a>        - Replace a signal name in a dataset or signal group.
+   <a href="#name145">ReplaceSignalInDataset</a>    - Replace a signal in a dataset.
+   <a href="#name146">ReplaceSignalInGroup</a>      - Replace a signal in a signal group.
+   <a href="#name147">ReplaceUnits</a>              - Replace a units string in a dataset or signal group.
+   <a href="#name148">ResampleDataset</a>           - Resample a dataset.
+   <a href="#name149">RunBatchFunction</a>          - Run a batch function on one or more data files.
+   <a href="#name150">SampleAndHold</a>             - Sample and hold signals in a dataset or signal group.
+   <a href="#name151">Select</a>                    - Select pathnames using a file browser.
+   <a href="#name152">SelectFromDataset</a>         - Reduce a dataset to a set of selected signals.
+   <a href="#name153">SelectFromGroup</a>           - Reduce a signal group to a set of selected signals.
+   <a href="#name154">SequenceDatasets</a>          - Sequence datasets contiguously in time.
+   <a href="#name155">SequenceTime</a>              - Generate a sequenced time array.
+   <a href="#name156">Source2Layer</a>              - Name layer corresponding to a source string.
+   <a href="#name157">SpectSignals</a>              - Compute power spectral density for a signal group.
+   <a href="#name158">UnlinkAxes</a>                - Un-link axes after plotting.
+   <a href="#name159">WeightedHistogram</a>         - Weighted histogram calculation.
+   <a href="#name160">WriteDataToCSV</a>            - Write dataset signals to a CSV file.
+   <a href="#name161">formats</a>                   - VTool file formats.
+   <a href="#name162">startup</a>                   - VTool startup script.
 </pre>
 <br>
 <font face="arial" size="3">Details</font>
@@ -3158,7 +3161,34 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name84">GetLayers</u></pre></TD>
+<TD vAlign=top><pre><u id="name84">GetHandles</u></pre></TD>
+<TD><PRE>
+  GETHANDLES - Return handles to axes and figures.
+  [Ht,Hf,Ho] = GetHandles()
+  [Ht,Hf,Ho] = GetHandles('all' | 'current')
+  [Ht,Hf,Ho,hfig,ht,hf,ho] = GetHandles(...)
+ 
+  Returns handles to 'Timeseries', 'Spectrum', and other docked 
+  figure axes as matrices (Ht,Hf,Ho). Rows in each matrix correspond 
+  to subplots, and columns correspond to figure numbers.  Ordering 
+  of subplots for non-Timeseries and non-Spectrum axes is top to 
+  bottom and left to right.  Nan values correspond to unused axes.  
+  Any undocked figures are ignored. 
+ 
+  Additional outputs 'hfig' and (ht,hf,ho) are returned in vector 
+  form. Output 'hfig' contains an ordered list of handles to docked 
+  figures, corresponding to columns of (Ht,Hf,Ho). Outputs (ht,hf,ho) 
+  contain the non-NaN entries of (Ht,Hf,Ho) in columnwise order. 
+ 
+  Two modes are available: 'all', for which the axes from all docked 
+  figures are included, and 'current', in which case only those 
+  docked figures generated in the same call as the currently active 
+  figure are considered.  If not specified, 'all' is assumed. 
+  <font face="arial" size="1"><a href="#top">(back to top)</a></font>
+</PRE></TD>
+</TR>
+<TR>
+<TD vAlign=top><pre><u id="name85">GetLayers</u></pre></TD>
 <TD><PRE>
   GETLAYERS - List of name layers in a dataset or signal group.
   Layers = GetLayers(Data)
@@ -3173,7 +3203,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name85">GetNames</u></pre></TD>
+<TD vAlign=top><pre><u id="name86">GetNames</u></pre></TD>
 <TD><PRE>
   GETNAMES - Get names from a name layer or signal channel.
   names = GetNames(Signals,layer)
@@ -3196,7 +3226,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name86">GetNamesMatrix</u></pre></TD>
+<TD vAlign=top><pre><u id="name87">GetNamesMatrix</u></pre></TD>
 <TD><PRE>
   GETNAMESMATRIX - Get names matrix for a signal group or dataset.
   [NAMES,Layers] = GetNamesMatrix(Signals)
@@ -3218,7 +3248,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name87">GetNumSignals</u></pre></TD>
+<TD vAlign=top><pre><u id="name88">GetNumSignals</u></pre></TD>
 <TD><PRE>
   GETNUMSIGNALS - Get number of signals in a signal group, dataset, etc.
   m = GetNumSignals(Signals)
@@ -3232,7 +3262,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name88">GetParam</u></pre></TD>
+<TD vAlign=top><pre><u id="name89">GetParam</u></pre></TD>
 <TD><PRE>
   GETPARAM - Return a VTool configuration parameter.
   p = GetParam(pname)
@@ -3242,7 +3272,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name89">GetSampleTime</u></pre></TD>
+<TD vAlign=top><pre><u id="name90">GetSampleTime</u></pre></TD>
 <TD><PRE>
   GETSAMPLETIME - Get sample time from a dataset or a Time group.
   Ts = GetSampleTime(Data)
@@ -3269,7 +3299,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name90">GetSignal</u></pre></TD>
+<TD vAlign=top><pre><u id="name91">GetSignal</u></pre></TD>
 <TD><PRE>
   GETSIGNAL - Extract a signal from a signal group or dataset.
   [x,units,description,index] = GetSignal(name,Signals)
@@ -3294,7 +3324,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name91">GetSignalGroups</u></pre></TD>
+<TD vAlign=top><pre><u id="name92">GetSignalGroups</u></pre></TD>
 <TD><PRE>
   GETSIGNALGROUPS - Get signal groups and group names.
   [s,fields] = GetSignalGroups(Data)
@@ -3307,7 +3337,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name92">GetTime</u></pre></TD>
+<TD vAlign=top><pre><u id="name93">GetTime</u></pre></TD>
 <TD><PRE>
   GETTIME - Extract the time vector from a dataset.
   t = GetTime(Data)
@@ -3320,7 +3350,30 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name93">IsDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name94">GroupSignalFromArray</u></pre></TD>
+<TD><PRE>
+  GROUPSIGNALFROMARRAY - Group a signal pulled from array elements.
+  Signals = GroupSignalFromArray(name,DATA)
+  Signals = GroupSignalFromArray(name,SIGNALS)
+  [Signals,IDs] = GroupSignalFromArray(...)
+ 
+  Form a signal group consisting of versions of the named signal extracted 
+  from successive elements of input dataset array 'DATA' or signal group 
+  array 'SIGNALS'. The result is scalar signal group 'Signals' with number 
+  of signals equal to the number of array elements. If 'DATA' or 'SIGNALS' 
+  is multidimensional, the ordering of the member signals corresponds to 
+  a columnwise ordering of the array. 
+ 
+  The additional output 'IDs' is a suggested list of string identifiers 
+  for the grouped signals. The list is formed from "source" strings in 
+  'DATA' (if available) or generated as a number sequence (e.g., '001', 
+  '002', '003', ...) of appropriate width and length. (An example use 
+  is for signal name modification or plot labeling.)  
+  <font face="arial" size="1"><a href="#top">(back to top)</a></font>
+</PRE></TD>
+</TR>
+<TR>
+<TD vAlign=top><pre><u id="name95">IsDataset</u></pre></TD>
 <TD><PRE>
   ISDATASET - Identify and check a dataset for validity.
   [flag,valid,errmsg] = IsDataset(Data)
@@ -3345,7 +3398,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name94">IsDatasetArray</u></pre></TD>
+<TD vAlign=top><pre><u id="name96">IsDatasetArray</u></pre></TD>
 <TD><PRE>
   ISDATASETARRAY - Identify and check a dataset array for validity.
   [flag,valid,errmsg] = IsDatasetArray(DATA)
@@ -3369,7 +3422,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name95">IsFileType</u></pre></TD>
+<TD vAlign=top><pre><u id="name97">IsFileType</u></pre></TD>
 <TD><PRE>
   ISFILETYPE - Flag filenames belonging to a specified file type.
   mask = IsFileType(list,filetype)
@@ -3396,7 +3449,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name96">IsSarray</u></pre></TD>
+<TD vAlign=top><pre><u id="name98">IsSarray</u></pre></TD>
 <TD><PRE>
   ISSARRAY - Identify and check an S-array for validity.
   [flag,valid] = IsSarray(S)
@@ -3424,7 +3477,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name97">IsSignalGroup</u></pre></TD>
+<TD vAlign=top><pre><u id="name99">IsSignalGroup</u></pre></TD>
 <TD><PRE>
   ISSIGNALGROUP - Identify and check a signal group for validity.
   [flag,valid] = IsSignalGroup(Signals [,'Time'])
@@ -3461,7 +3514,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name98">IsSignalGroupArray</u></pre></TD>
+<TD vAlign=top><pre><u id="name100">IsSignalGroupArray</u></pre></TD>
 <TD><PRE>
   ISSIGNALGROUPARRAY - Identify and check a signal group array for validity.
   [flag,valid,errmsg] = IsSignalGroupArray(SIGNALS [,'Time'])
@@ -3487,7 +3540,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name99">Layer2Source</u></pre></TD>
+<TD vAlign=top><pre><u id="name101">Layer2Source</u></pre></TD>
 <TD><PRE>
   LAYER2SOURCE - Source string corresponding to a name layer.
   source = Layer2Source(layer)
@@ -3498,7 +3551,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name100">LimitTimeRange</u></pre></TD>
+<TD vAlign=top><pre><u id="name102">LimitTimeRange</u></pre></TD>
 <TD><PRE>
   LIMITTIMERANGE - Limit time range of a dataset.
   Data = LimitTimeRange(Data,Trange)
@@ -3520,7 +3573,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name101">LinkAxes</u></pre></TD>
+<TD vAlign=top><pre><u id="name103">LinkAxes</u></pre></TD>
 <TD><PRE>
   LINKAXES - Link axes after plotting.
   LinkAxes
@@ -3535,7 +3588,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name102">ListSourceTypes</u></pre></TD>
+<TD vAlign=top><pre><u id="name104">ListSourceTypes</u></pre></TD>
 <TD><PRE>
   LISTSOURCETYPES - List the source types in "NameTables.xlsx".
   Tabs = ListSourceTypes
@@ -3549,7 +3602,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name103">MakeSarray</u></pre></TD>
+<TD vAlign=top><pre><u id="name105">MakeSarray</u></pre></TD>
 <TD><PRE>
   MAKESARRAY - Make an S-array from signal data.
   S = MakeSarray('Sampling',Ts,'Data',Data)
@@ -3620,7 +3673,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name104">MakeSarrayFile</u></pre></TD>
+<TD vAlign=top><pre><u id="name106">MakeSarrayFile</u></pre></TD>
 <TD><PRE>
   MAKESARRAYFILE - Make an S-array .mat file from signal data.
   MakeSarrayFile(pathname,'Sampling',Ts,'Data',Data)
@@ -3694,7 +3747,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name105">MakeVtlFile</u></pre></TD>
+<TD vAlign=top><pre><u id="name107">MakeVtlFile</u></pre></TD>
 <TD><PRE>
   MAKEVTLFILE - Make a .vtl file from time-synchronized data.
   MakeVtlFile(pathname,t,Values,Names,Units,Descriptions,sourcetype)
@@ -3735,7 +3788,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name106">MatchSignalToRef</u></pre></TD>
+<TD vAlign=top><pre><u id="name108">MatchSignalToRef</u></pre></TD>
 <TD><PRE>
   MATCHSIGNALTOREF - Match a signal to a reference signal.
   [q,delay] = MatchSignalToRef(t,x,t0,x0)
@@ -3772,7 +3825,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name107">MergeDatasets</u></pre></TD>
+<TD vAlign=top><pre><u id="name109">MergeDatasets</u></pre></TD>
 <TD><PRE>
   MERGEDATASETS - Merge two or more datasets into one.
   Data = MergeDatasets(Data1,Data2,...)
@@ -3794,7 +3847,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name108">MergeSignalGroups</u></pre></TD>
+<TD vAlign=top><pre><u id="name110">MergeSignalGroups</u></pre></TD>
 <TD><PRE>
   MERGESIGNALGROUPS - Merge two or more signal groups into one.
   Signals = MergeSignalGroups(Signals1,Signals2,...)
@@ -3806,7 +3859,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name109">NameTables</u></pre></TD>
+<TD vAlign=top><pre><u id="name111">NameTables</u></pre></TD>
 <TD><PRE>
   NAMETABLES - Open the active NameTables.xlsx file.
   NameTables
@@ -3817,7 +3870,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name110">NanFillDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name112">NanFillDataset</u></pre></TD>
 <TD><PRE>
   NANFILLDATASET - Regularize time and fill sampling holes in a dataset.
   Data1 = NanFillDataset(Data)
@@ -3851,7 +3904,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name111">NullDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name113">NullDataset</u></pre></TD>
 <TD><PRE>
   NULLDATASET - Build a null dataset from a model.
   Data = NullDataset(Data)
@@ -3872,7 +3925,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name112">PadDataToLength</u></pre></TD>
+<TD vAlign=top><pre><u id="name114">PadDataToLength</u></pre></TD>
 <TD><PRE>
   PADDATATOLENGTH - Pad a dataset or dataset array to length.
   DATA = PadDataToLength(DATA,value)
@@ -3901,7 +3954,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name113">PadSignalsToLength</u></pre></TD>
+<TD vAlign=top><pre><u id="name115">PadSignalsToLength</u></pre></TD>
 <TD><PRE>
   PADSIGNALSTOLENGTH - Pad a signal group or signal-group array to length.
   SIGNALS = PadSignalsToLength(SIGNALS,value)
@@ -3930,7 +3983,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name114">PlotBinnedSequences</u></pre></TD>
+<TD vAlign=top><pre><u id="name116">PlotBinnedSequences</u></pre></TD>
 <TD><PRE>
   PLOTBINNEDSEQUENCES - Plot raw sequences, segregated by bin.
   PlotBinnedSequences(SIGNALS)
@@ -3965,12 +4018,12 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name115">PlotConcatenatedArrays</u></pre></TD>
+<TD vAlign=top><pre><u id="name117">PlotConcatenatedArrays</u></pre></TD>
 <TD><PRE>
   PLOTCONCATENATEDARRAYS - Plot concatenated signal group arrays.
   PlotConcatenatedArrays(TIMES,SIGNALS)
   PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'])
-  PlotConcatenatedArrays(...,&lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  PlotConcatenatedArrays(...,&lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
  
   Plots one or more signal group arrays after concatenation into 
   contiguous sequences.  Signal group arrays must be equal in size, 
@@ -3998,7 +4051,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name116">PlotDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name118">PlotDataset</u></pre></TD>
 <TD><PRE>
   PLOTDATASET - Plot and analyze signals from one or more datasets.
   PlotDataset(Data [,Trange] [,'psd'] [,'coh'] [,'single'] [,'ppt'], [,'fig'])
@@ -4051,7 +4104,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name117">PlotLtStats</u></pre></TD>
+<TD vAlign=top><pre><u id="name119">PlotLtStats</u></pre></TD>
 <TD><PRE>
   PLOTLTSTATS - Plot long-time (min-max-mean) stats.
   PlotLtStats(Stats,Info)
@@ -4092,7 +4145,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name118">PlotMeanStats</u></pre></TD>
+<TD vAlign=top><pre><u id="name120">PlotMeanStats</u></pre></TD>
 <TD><PRE>
   PLOTMEANSTATS - Plot mean-value stats.
   PlotMeanStats(Stats,Info)
@@ -4132,7 +4185,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name119">PlotPsdStats</u></pre></TD>
+<TD vAlign=top><pre><u id="name121">PlotPsdStats</u></pre></TD>
 <TD><PRE>
   PLOTPSDSTATS - Plot power-spectral-density stats.
   PlotPsdStats(Stats,Info)
@@ -4173,9 +4226,9 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name120">PlotSignalGroup</u></pre></TD>
+<TD vAlign=top><pre><u id="name122">PlotSignalGroup</u></pre></TD>
 <TD><PRE>
-  PLOTSIGNALGROUP - Plot a signal group or signal group array.
+  PLOTSIGNALGROUP - Plot and analyze a signal group or signal group array.
   PlotSignalGroup(Signals)
   PlotSignalGroup(Time,Signals)
   PlotSignalGroup(TIMES,SIGNALS)
@@ -4246,11 +4299,53 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name121">PlotSignalsInDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name123">PlotSignalsInCombination</u></pre></TD>
+<TD><PRE>
+  PLOTSIGNALSINCOMBINATION - Plot a mixed signal combination from an array.
+  PlotSignalsInCombination(DATA,names)
+  PlotSignalsInCombination(SIGNALS,names)
+  PlotSignalsInCombination(DATA,names,    &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
+  PlotSignalsInCombination(SIGNALS,names, &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
+  PlotSignalsInCombination(Data,names, ...)
+  PlotSignalsInCombination(Signals,names, ...)
+ 
+  Plots a mixed set of named signals as a grouping within subplots, 
+  each subplot containing the given signal set drawn from successive 
+  elements of a dataset or signal group array. The first input 
+  ('DATA' or 'SIGNALS') specifies the input array, and the second 
+  input ('names') specifies the list of signals to appear within 
+  each subplot. Additional figures are opened as needed to accommodate 
+  the full number of array elements. (Note that a length-1 array, 
+  i.e., a scalar dataset 'Data' or scalar signal group 'Signals', 
+  is also permissible.) 
+ 
+  The signals within successive subplots are annotated using either 
+  "source" strings from the dataset array, if present, or a generated 
+  numerical sequence (e.g., '001','002', ...). If the input array 
+  is multidimensional, the indexing into the array is ordered in 
+  columnwise fashion. 
+ 
+  Additional control over the plotting, including number of rows 
+  per figure window, specification of power spectral density or 
+  coherence plots, etc., can be realized by providing any of the 
+  option/value pairs defined in function "PlotSignalGroup". Note 
+  that if a 'Legend' option is specified, the specified legend 
+  strings will be understood to apply to the elements of the 
+  'names' list. 
+ 
+  See also "PlotSignalsInDataset". 
+  <font face="arial" size="1"><a href="#top">(back to top)</a></font>
+</PRE></TD>
+</TR>
+<TR>
+<TD vAlign=top><pre><u id="name124">PlotSignalsInDataset</u></pre></TD>
 <TD><PRE>
   PLOTSIGNALSINDATASET - Plot dataset signals with user-definable grouping.
   PlotSignalsInDataset(Data,Names)
-  PlotSignalsInDataset(Data,Names,&lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  PlotSignalsInDataset(Data,Names,&lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
+  PlotSignalsInDataset(DATA, ...)
+  PlotSignalsInDataset(Signals, ...)
+  PlotSignalsInDataset(SIGNALS, ...)
  
   Plots selected signals from a dataset with user-definable grouping 
   of signals within subplots.  Input 'Data' is a scalar dataset, and 
@@ -4269,11 +4364,20 @@ For categories, type "help vtool" or see "Contents.m".
  
   Null signal names ('') are permitted in the 'Names' array, and 
   result in the corresponding signal being omitted from the plot. 
+ 
+  If dataset array 'DATA' is provided in place of scalar dataset 
+  'Data', the plotting is repeated for all elements of the array. 
+  If scalar signal group 'Signals', or signal group array 'SIGNALS' 
+  is provided, these are paired with a unitless indexed time group 
+  to form an implied dataset or dataset array, respectively, and 
+  the function proceeds accordingly. 
+ 
+  See also "PlotSignalsInCombination". 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name122">PlotStStats</u></pre></TD>
+<TD vAlign=top><pre><u id="name125">PlotStStats</u></pre></TD>
 <TD><PRE>
   PLOTSTSTATS - Plot short-time stats.
   PlotStStats(Stats,Info)
@@ -4312,7 +4416,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name123">PrintNameTables</u></pre></TD>
+<TD vAlign=top><pre><u id="name126">PrintNameTables</u></pre></TD>
 <TD><PRE>
   PRINTNAMETABLES - Print NameTables.xlsx to a text file.
   PrintNameTables(outfile)
@@ -4329,7 +4433,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name124">ReadMasterLookup</u></pre></TD>
+<TD vAlign=top><pre><u id="name127">ReadMasterLookup</u></pre></TD>
 <TD><PRE>
   READMASTERLOOKUP - Read MASTER lookup table.
   [Names,SourceType,Layers,ALLNAMES] = ReadMasterLookup
@@ -4367,7 +4471,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name125">ReadSarrayFile</u></pre></TD>
+<TD vAlign=top><pre><u id="name128">ReadSarrayFile</u></pre></TD>
 <TD><PRE>
   READSARRAYFILE - Read signal data from an S-array file.
   S = ReadSarrayFile(pathname)
@@ -4390,7 +4494,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name126">ReadSourceTab</u></pre></TD>
+<TD vAlign=top><pre><u id="name129">ReadSourceTab</u></pre></TD>
 <TD><PRE>
   READSOURCETAB - Read a "source tab" from "NameTables.xlsx".
   [Names,Factors,Units,Descriptions,TabInfo] = ReadSourceTab(sourcetype)
@@ -4424,7 +4528,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name127">ReadXlsFile</u></pre></TD>
+<TD vAlign=top><pre><u id="name130">ReadXlsFile</u></pre></TD>
 <TD><PRE>
   READXLSFILE - Read signal data from a spreadsheet file.
   S = ReadXlsFile(pathname)
@@ -4458,7 +4562,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name128">RebuildDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name131">RebuildDataset</u></pre></TD>
 <TD><PRE>
   REBUILDDATASET - Rebuild a dataset based on NameTables.
   Data = RebuildDataset(DataIn,groups,layers,layer0)
@@ -4483,7 +4587,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name129">RebuildDatasetFromModel</u></pre></TD>
+<TD vAlign=top><pre><u id="name132">RebuildDatasetFromModel</u></pre></TD>
 <TD><PRE>
   REBUILDDATASETFROMMODEL - Rebuild a dataset based on a model.
   Data = RebuildDatasetFromModel(DataIn,Data0,layer0)
@@ -4515,7 +4619,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name130">ReconcileUnits</u></pre></TD>
+<TD vAlign=top><pre><u id="name133">ReconcileUnits</u></pre></TD>
 <TD><PRE>
   RECONCILEUNITS - Reconcile units across datasets or signal groups.
   [DATA,success] = ReconcileUnits(DATA)
@@ -4546,7 +4650,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name131">RegroupByDimension</u></pre></TD>
+<TD vAlign=top><pre><u id="name134">RegroupByDimension</u></pre></TD>
 <TD><PRE>
   REGROUPBYDIMENSION - Regroup a dataset by signal dimension.
   Data1 = RegroupByDimension(Data)
@@ -4574,7 +4678,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name132">RemoveFromGroup</u></pre></TD>
+<TD vAlign=top><pre><u id="name135">RemoveFromGroup</u></pre></TD>
 <TD><PRE>
   REMOVEFROMGROUP - Remove one or more signals from a signal group.
   Signals1 = RemoveFromGroup(names,Signals)
@@ -4607,7 +4711,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name133">RemoveGroupsExcept</u></pre></TD>
+<TD vAlign=top><pre><u id="name136">RemoveGroupsExcept</u></pre></TD>
 <TD><PRE>
   REMOVEGROUPSEXCEPT - Remove extra signal groups.
   Data = RemoveGroupsExcept(selections,Data)
@@ -4625,7 +4729,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name134">RemoveLayersExcept</u></pre></TD>
+<TD vAlign=top><pre><u id="name137">RemoveLayersExcept</u></pre></TD>
 <TD><PRE>
   REMOVELAYERSEXCEPT - Remove extra name layers.
   Data = RemoveLayersExcept(selections,Data)
@@ -4645,7 +4749,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name135">RemoveNameLayer</u></pre></TD>
+<TD vAlign=top><pre><u id="name138">RemoveNameLayer</u></pre></TD>
 <TD><PRE>
   REMOVENAMELAYER - Remove one or more name layers.
   Data = RemoveNameLayer(Data,layer)
@@ -4665,7 +4769,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name136">RemoveRepeatedPoints</u></pre></TD>
+<TD vAlign=top><pre><u id="name139">RemoveRepeatedPoints</u></pre></TD>
 <TD><PRE>
   REMOVEREPEATEDPOINTS - Remove repeated time points from a dataset.
   DataOut = RemoveRepeatedPoints(Data)
@@ -4705,7 +4809,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name137">RenameField</u></pre></TD>
+<TD vAlign=top><pre><u id="name140">RenameField</u></pre></TD>
 <TD><PRE>
   RENAMEFIELD - Rename signal groups, name layers, or fields.
   Data = RenameField(Data,'oldgroup','newgroup')
@@ -4729,7 +4833,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name138">RenameLayer</u></pre></TD>
+<TD vAlign=top><pre><u id="name141">RenameLayer</u></pre></TD>
 <TD><PRE>
   RENAMELAYER - Rename one or more name layers.
   Data = RenameLayer(Data,'oldlayer','newlayer')
@@ -4749,7 +4853,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name139">ReorderFields</u></pre></TD>
+<TD vAlign=top><pre><u id="name142">ReorderFields</u></pre></TD>
 <TD><PRE>
   REORDERFIELDS - Re-order fields to standard order.
   Data = ReorderFields(Data)
@@ -4763,7 +4867,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name140">ReplaceDescription</u></pre></TD>
+<TD vAlign=top><pre><u id="name143">ReplaceDescription</u></pre></TD>
 <TD><PRE>
   REPLACEDESCRIPTION - Replace a description string in a dataset or signal group.
   Data = ReplaceDescription(Data,name,description)
@@ -4796,7 +4900,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name141">ReplaceNameOnLayer</u></pre></TD>
+<TD vAlign=top><pre><u id="name144">ReplaceNameOnLayer</u></pre></TD>
 <TD><PRE>
   REPLACENAMEONLAYER - Replace a signal name in a dataset or signal group.
   Data = ReplaceNameOnLayer(Data,name1,name2,layer)
@@ -4833,7 +4937,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name142">ReplaceSignalInDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name145">ReplaceSignalInDataset</u></pre></TD>
 <TD><PRE>
   REPLACESIGNALINDATASET - Replace a signal in a dataset.
   Data = ReplaceSignalInDataset(Data,name,x)
@@ -4869,7 +4973,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name143">ReplaceSignalInGroup</u></pre></TD>
+<TD vAlign=top><pre><u id="name146">ReplaceSignalInGroup</u></pre></TD>
 <TD><PRE>
   REPLACESIGNALINGROUP - Replace a signal in a signal group.
   Signals = ReplaceSignalInGroup(Signals,name,x)
@@ -4904,7 +5008,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name144">ReplaceUnits</u></pre></TD>
+<TD vAlign=top><pre><u id="name147">ReplaceUnits</u></pre></TD>
 <TD><PRE>
   REPLACEUNITS - Replace a units string in a dataset or signal group.
   Data = ReplaceUnits(Data,name,units)
@@ -4937,7 +5041,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name145">ResampleDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name148">ResampleDataset</u></pre></TD>
 <TD><PRE>
   RESAMPLEDATASET - Resample a dataset.
   Data = ResampleDataset(Data,TS,Trange)
@@ -4985,7 +5089,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name146">RunBatchFunction</u></pre></TD>
+<TD vAlign=top><pre><u id="name149">RunBatchFunction</u></pre></TD>
 <TD><PRE>
   RUNBATCHFUNCTION - Run a batch function on one or more data files.
   RunBatchFunction(fun,pathname)
@@ -5039,7 +5143,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name147">SampleAndHold</u></pre></TD>
+<TD vAlign=top><pre><u id="name150">SampleAndHold</u></pre></TD>
 <TD><PRE>
   SAMPLEANDHOLD - Sample and hold signals in a dataset or signal group.
   Data = SampleAndHold(Data,names,trigger)
@@ -5071,7 +5175,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name148">Select</u></pre></TD>
+<TD vAlign=top><pre><u id="name151">Select</u></pre></TD>
 <TD><PRE>
   SELECT - Select pathnames using a file browser.
   [pathnames,fnames] = Select
@@ -5095,7 +5199,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name149">SelectFromDataset</u></pre></TD>
+<TD vAlign=top><pre><u id="name152">SelectFromDataset</u></pre></TD>
 <TD><PRE>
   SELECTFROMDATASET - Reduce a dataset to a set of selected signals.
   Signals = SelectFromDataset(names,Data)
@@ -5124,7 +5228,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name150">SelectFromGroup</u></pre></TD>
+<TD vAlign=top><pre><u id="name153">SelectFromGroup</u></pre></TD>
 <TD><PRE>
   SELECTFROMGROUP - Reduce a signal group to a set of selected signals.
   Signals1 = SelectFromGroup(names,Signals)
@@ -5151,7 +5255,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name151">SequenceDatasets</u></pre></TD>
+<TD vAlign=top><pre><u id="name154">SequenceDatasets</u></pre></TD>
 <TD><PRE>
   SEQUENCEDATASETS - Sequence datasets contiguously in time.
   DATA = SequenceDatasets(Data1,Data2,Data3, ...)
@@ -5173,7 +5277,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name152">SequenceTime</u></pre></TD>
+<TD vAlign=top><pre><u id="name155">SequenceTime</u></pre></TD>
 <TD><PRE>
   SEQUENCETIME - Generate a sequenced time array.
   TIMES = SequenceTime(Time,offset,N)
@@ -5198,7 +5302,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name153">Source2Layer</u></pre></TD>
+<TD vAlign=top><pre><u id="name156">Source2Layer</u></pre></TD>
 <TD><PRE>
   SOURCE2LAYER - Name layer corresponding to a source string.
   layer = Source2Layer(source)
@@ -5210,7 +5314,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name154">SpectSignals</u></pre></TD>
+<TD vAlign=top><pre><u id="name157">SpectSignals</u></pre></TD>
 <TD><PRE>
   SPECTSIGNALS - Compute power spectral density for a signal group.
   [Pxx,f] = SpectSignals(Signals,Ts)
@@ -5240,7 +5344,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name155">UnlinkAxes</u></pre></TD>
+<TD vAlign=top><pre><u id="name158">UnlinkAxes</u></pre></TD>
 <TD><PRE>
   UNLINKAXES - Un-link axes after plotting.
   UnlinkAxes
@@ -5255,7 +5359,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name156">WeightedHistogram</u></pre></TD>
+<TD vAlign=top><pre><u id="name159">WeightedHistogram</u></pre></TD>
 <TD><PRE>
   WEIGHTEDHISTOGRAM - Weighted histogram calculation.
   [H,centers,means] = WeightedHistogram(values,weights,edges)
@@ -5278,7 +5382,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name157">WriteDataToCSV</u></pre></TD>
+<TD vAlign=top><pre><u id="name160">WriteDataToCSV</u></pre></TD>
 <TD><PRE>
   WRITEDATATOCSV - Write dataset signals to a CSV file.
   WriteDataToCSV(outfile,Data,layer)
@@ -5293,7 +5397,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name158">formats</u></pre></TD>
+<TD vAlign=top><pre><u id="name161">formats</u></pre></TD>
 <TD><PRE>
   VTool file formats.
   
@@ -5328,7 +5432,7 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name159">startup</u></pre></TD>
+<TD vAlign=top><pre><u id="name162">startup</u></pre></TD>
 <TD><PRE>
   STARTUP - VTool startup script.
  

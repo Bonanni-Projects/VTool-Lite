@@ -3,7 +3,7 @@ function PlotConcatenatedArrays(varargin)
 % PLOTCONCATENATEDARRAYS - Plot concatenated signal group arrays.
 % PlotConcatenatedArrays(TIMES,SIGNALS)
 % PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'])
-% PlotConcatenatedArrays(...,<Option1>,<Value>,<Option2>,{Value>,...)
+% PlotConcatenatedArrays(...,<Option1>,<Value>,<Option2>,<Value>,...)
 %
 % Plots one or more signal group arrays after concatenation into 
 % contiguous sequences.  Signal group arrays must be equal in size, 
@@ -64,6 +64,9 @@ for k = i:j
   end
   % Get element-wise data lengths
   nvec = arrayfun(@(x)size(x.Values,1),args{k});
+  if any(nvec==0)
+    error('Plotting requires all data lengths be greater than zero.')
+  end
   if k == i
     nvec0 = nvec;
   elseif ~isequal(nvec,nvec0)
@@ -120,6 +123,10 @@ end
 % Concatenate all signal group arrays
 Time = ConcatSignalGroups(TIMES);
 C_Signals = cellfun(@ConcatSignalGroups,C_SIGNALS,'Uniform',false);
+
+% Set a tag string with a timestamp, and add to 'args' list
+tag = sprintf('PlotConcatenatedArrays: %s', datestr(now));
+args = [args,'tag',tag];
 
 % Plot concatenated sequences
 SIGNALS = cat(1,C_Signals{:});

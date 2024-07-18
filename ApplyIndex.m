@@ -33,7 +33,7 @@ function obj = ApplyIndex(obj,index,option)
 if nargin < 3
   option = '';
 end
-  
+
 % Check first input
 [flag1,valid1,errmsg1] = IsSignalGroupArray(obj);
 [flag2,valid2,errmsg2] = IsDatasetArray(obj);

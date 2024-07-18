@@ -41,6 +41,7 @@
 %   BuildTimeGroup            - Build a time signal group.
 %   BuildTimeArray            - Build a time signal group array.
 %   DefineSignalGroup         - Define a new signal group on a dataset.
+%   GroupSignalFromArray      - Group a signal pulled from array elements.
 %   CollectSignals            - Collect signals from a dataset into a master group.
 %   AddSignalToGroup          - Add a signal to a new or existing signal group.
 %   MergeSignalGroups         - Merge two or more signal groups into one.
@@ -106,13 +107,15 @@
 %   DisplaySampleTime         - Display sample time statistics.
 %   DisplaySignalGroup        - Display contents of a signal group.
 %   PlotDataset               - Plot and analyze signals from one or more datasets.
+%   PlotSignalGroup           - Plot and analyze a signal group or signal group array.
 %   PlotSignalsInDataset      - Plot dataset signals with user-definable grouping.
-%   PlotSignalGroup           - Plot a signal group or signal group array.
+%   PlotSignalsInCombination  - Plot a mixed signal combination from an array.
 %   PlotConcatenatedArrays    - Plot concatenated signal group arrays.
 %   PlotBinnedSequences       - Plot raw sequences, segregated by bin.
 %   FiguresToPPT              - Save current figures to PowerPoint.
 %   FiguresToFile             - Save current figures to a .fig file.
 %   FiguresToPNG              - Save current figures to .png files.
+%   GetHandles                - Return handles to axes and figures.
 %   LinkAxes                  - Link axes after plotting.
 %   UnlinkAxes                - Un-link axes after plotting.
 %   PlotMeanStats             - Plot mean-value stats.

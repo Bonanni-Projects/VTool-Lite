@@ -1,6 +1,6 @@
 function PlotSignalGroup(varargin)
 
-% PLOTSIGNALGROUP - Plot a signal group or signal group array.
+% PLOTSIGNALGROUP - Plot and analyze a signal group or signal group array.
 % PlotSignalGroup(Signals)
 % PlotSignalGroup(Time,Signals)
 % PlotSignalGroup(TIMES,SIGNALS)
