@@ -14,7 +14,7 @@ function out = BatchFunction(pathname,outfolder)
 
 
 if nargin < 2
-  outfolder = '.';
+  outfolder = [];
 end
 
 % No outputs if 'outfolder' specified
