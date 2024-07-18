@@ -1,8 +1,9 @@
-function [Ht,Hf,Ho] = GetHandles(option)
+function [Ht,Hf,Ho,hfig,ht,hf,ho] = GetHandles(option)
 
-% GETHANDLES - Return axes handles in matrix form.
+% GETHANDLES - Return handles to axes and figures.
 % [Ht,Hf,Ho] = GetHandles()
 % [Ht,Hf,Ho] = GetHandles('all' | 'current')
+% [Ht,Hf,Ho,hfig,ht,hf,ho] = GetHandles(...)
 %
 % Returns handles to 'Timeseries', 'Spectrum', and other docked 
 % figure axes as matrices (Ht,Hf,Ho). Rows in each matrix correspond 
@@ -10,6 +11,11 @@ function [Ht,Hf,Ho] = GetHandles(option)
 % of subplots for non-Timeseries and non-Spectrum axes is top to 
 % bottom and left to right.  Nan values correspond to unused axes.  
 % Any undocked figures are ignored. 
+%
+% Additional outputs 'hfig' and (ht,hf,ho) are returned in vector 
+% form. Output 'hfig' contains an ordered list of handles to docked 
+% figures, corresponding to columns of (Ht,Hf,Ho). Outputs (ht,hf,ho) 
+% contain the non-NaN entries of (Ht,Hf,Ho) in columnwise order. 
 %
 % Two modes are available: 'all', for which the axes from all docked 
 % figures are included, and 'current', in which case only those 
@@ -41,9 +47,13 @@ end
 
 % Return immediately if none present
 if isempty(hfig)
-  Ht = [];
-  Hf = [];
-  Ho = [];
+  Ht   = [];
+  Hf   = [];
+  Ho   = [];
+  hfig = [];
+  ht   = [];
+  hf   = [];
+  ho   = [];
   return
 end
 
@@ -111,3 +121,8 @@ for k = 1:nfigs
   h = C3{k};
   Ho(1:length(h),k) = h;
 end
+
+% Extract non-NaN entries into vectors
+ht = Ht(:);  ht(isnan(ht))=[];
+hf = Hf(:);  hf(isnan(hf))=[];
+ho = Ho(:);  ho(isnan(ho))=[];
