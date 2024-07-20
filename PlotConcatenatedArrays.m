@@ -1,8 +1,10 @@
 function PlotConcatenatedArrays(varargin)
 
-% PLOTCONCATENATEDARRAYS - Plot concatenated signal group arrays.
+% PLOTCONCATENATEDARRAYS - Plot concatenated signal group or dataset arrays.
 % PlotConcatenatedArrays(TIMES,SIGNALS)
+% PlotConcatenatedArrays(DATA)
 % PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'])
+% PlotConcatenatedArrays(DATA1,DATA2,...,'NanSeparators',['on'|'off'])
 % PlotConcatenatedArrays(...,<Option1>,<Value>,<Option2>,<Value>,...)
 %
 % Plots one or more signal group arrays after concatenation into 
@@ -11,6 +13,10 @@ function PlotConcatenatedArrays(varargin)
 % (see "IsSignalGroupArray".)  A 'TIMES' array is optional. Each 
 % concatenated array is represented by a single color in the 
 % generated plots. 
+%
+% Dataset array(s) are also accepted, provided their signal groups 
+% satisfy the requirements above. Their 'Time' groups are ignored. 
+% (If 'Time' is desired, use "PlotDataset(ConcatDatasets(.),...)".)
 %
 % The function accepts all option/value pairs defined in function 
 % "PlotSignalGroup", which allow selection of signal names, and 
@@ -35,11 +41,29 @@ function PlotConcatenatedArrays(varargin)
 % Distributed under GNU General Public License v2.0.
 
 
-% Check calling syntax
+% Check overall calling syntax
 args = varargin;  % initialize
 mask = cellfun(@isstruct,args);  if all(~mask), error('Invalid usage.'); end
 i = find(mask,1,'first');  if i~=1,             error('Invalid usage.'); end
 j = find(mask,1,'last');   if ~all(mask(i:j)),  error('Invalid usage.'); end
+
+% Determine if dataset array(s) provided, based on first input. 
+% If so, extract signal group arrays, and proceed with same. 
+if IsDatasetArray(args{1})  % Note: args{1} can still be ~valid
+  for k = i:j
+    [flag,valid,errmsg] = IsDatasetArray(args{k});
+    if ~flag
+      error('Input #%d is not a dataset or dataset array: %s',k,errmsg)
+    elseif ~valid
+      args{k} = ReconcileUnits(args{k});  % in case of missing units, attempt to reconcile
+      [~,valid] = IsDatasetArray(args{k});
+      if ~valid
+        error('Input #%d is not a valid dataset or dataset array: %s  See "IsDatasetArray".',k,errmsg)
+      end
+    end
+    args{k} = arrayfun(@CollectSignals,args{k});
+  end
+end
 
 % Check structure inputs
 for k = i:j

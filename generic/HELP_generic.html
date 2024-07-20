@@ -8,7 +8,7 @@ Contents Reference
 <br>
 <TABLE border=0 width="800" cellSpacing=0 cellPadding=0>
 <TBODY>
-<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 7/19/24</address></font></TD></TR>
+<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 7/20/24</address></font></TD></TR>
 </TBODY>
 </TABLE>
 <p><small><font face="arial">
@@ -131,7 +131,7 @@ For categories, type "help vtool" or see "Contents.m".
    <a href="#name114">PadDataToLength</a>           - Pad a dataset or dataset array to length.
    <a href="#name115">PadSignalsToLength</a>        - Pad a signal group or signal-group array to length.
    <a href="#name116">PlotBinnedSequences</a>       - Plot raw sequences, segregated by bin.
-   <a href="#name117">PlotConcatenatedArrays</a>    - Plot concatenated signal group arrays.
+   <a href="#name117">PlotConcatenatedArrays</a>    - Plot concatenated signal group or dataset arrays.
    <a href="#name118">PlotDataset</a>               - Plot and analyze signals from one or more datasets.
    <a href="#name119">PlotLtStats</a>               - Plot long-time (min-max-mean) stats.
    <a href="#name120">PlotMeanStats</a>             - Plot mean-value stats.
@@ -4020,9 +4020,11 @@ For categories, type "help vtool" or see "Contents.m".
 <TR>
 <TD vAlign=top><pre><u id="name117">PlotConcatenatedArrays</u></pre></TD>
 <TD><PRE>
-  PLOTCONCATENATEDARRAYS - Plot concatenated signal group arrays.
+  PLOTCONCATENATEDARRAYS - Plot concatenated signal group or dataset arrays.
   PlotConcatenatedArrays(TIMES,SIGNALS)
+  PlotConcatenatedArrays(DATA)
   PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'])
+  PlotConcatenatedArrays(DATA1,DATA2,...,'NanSeparators',['on'|'off'])
   PlotConcatenatedArrays(...,&lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
  
   Plots one or more signal group arrays after concatenation into 
@@ -4031,6 +4033,10 @@ For categories, type "help vtool" or see "Contents.m".
   (see "IsSignalGroupArray".)  A 'TIMES' array is optional. Each 
   concatenated array is represented by a single color in the 
   generated plots. 
+ 
+  Dataset array(s) are also accepted, provided their signal groups 
+  satisfy the requirements above. Their 'Time' groups are ignored. 
+  (If 'Time' is desired, use "PlotDataset(ConcatDatasets(.),...)".)
  
   The function accepts all option/value pairs defined in function 
   "PlotSignalGroup", which allow selection of signal names, and 

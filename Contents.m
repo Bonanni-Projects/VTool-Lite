@@ -110,7 +110,7 @@
 %   PlotSignalGroup           - Plot and analyze a signal group or signal group array.
 %   PlotSignalsInDataset      - Plot dataset signals with user-definable grouping.
 %   PlotSignalsFromArray      - Plot one or more grouped signals from an array.
-%   PlotConcatenatedArrays    - Plot concatenated signal group arrays.
+%   PlotConcatenatedArrays    - Plot concatenated signal group or dataset arrays.
 %   PlotBinnedSequences       - Plot raw sequences, segregated by bin.
 %   FiguresToPPT              - Save current figures to PowerPoint.
 %   FiguresToFile             - Save current figures to a .fig file.
