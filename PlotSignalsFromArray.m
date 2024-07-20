@@ -58,7 +58,7 @@ end
 % If dataset array provided, Time groups must match
 if IsDatasetArray(obj)
   C = {obj.Time};
-  if ~isequal(C{:})
+  if ~isscalar(C) && ~isequal(C{:})
     error('Time groups within the dataset array must match.')
   end
 end
