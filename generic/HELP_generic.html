@@ -8,7 +8,7 @@ Contents Reference
 <br>
 <TABLE border=0 width="800" cellSpacing=0 cellPadding=0>
 <TBODY>
-<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 7/18/24</address></font></TD></TR>
+<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 7/19/24</address></font></TD></TR>
 </TBODY>
 </TABLE>
 <p><small><font face="arial">
@@ -137,7 +137,7 @@ For categories, type "help vtool" or see "Contents.m".
    <a href="#name120">PlotMeanStats</a>             - Plot mean-value stats.
    <a href="#name121">PlotPsdStats</a>              - Plot power-spectral-density stats.
    <a href="#name122">PlotSignalGroup</a>           - Plot and analyze a signal group or signal group array.
-   <a href="#name123">PlotSignalsInCombination</a>  - Plot a mixed signal combination from an array.
+   <a href="#name123">PlotSignalsFromArray</a>      - Plot one or more grouped signals from an array.
    <a href="#name124">PlotSignalsInDataset</a>      - Plot dataset signals with user-definable grouping.
    <a href="#name125">PlotStStats</a>               - Plot short-time stats.
    <a href="#name126">PrintNameTables</a>           - Print NameTables.xlsx to a text file.
@@ -4299,15 +4299,15 @@ For categories, type "help vtool" or see "Contents.m".
 </PRE></TD>
 </TR>
 <TR>
-<TD vAlign=top><pre><u id="name123">PlotSignalsInCombination</u></pre></TD>
+<TD vAlign=top><pre><u id="name123">PlotSignalsFromArray</u></pre></TD>
 <TD><PRE>
-  PLOTSIGNALSINCOMBINATION - Plot a mixed signal combination from an array.
-  PlotSignalsInCombination(DATA,names)
-  PlotSignalsInCombination(SIGNALS,names)
-  PlotSignalsInCombination(DATA,names,    &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
-  PlotSignalsInCombination(SIGNALS,names, &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
-  PlotSignalsInCombination(Data,names, ...)
-  PlotSignalsInCombination(Signals,names, ...)
+  PLOTSIGNALSFROMARRAY - Plot one or more grouped signals from an array.
+  PlotSignalsFromArray(DATA,names)
+  PlotSignalsFromArray(SIGNALS,names)
+  PlotSignalsFromArray(DATA,names,    &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
+  PlotSignalsFromArray(SIGNALS,names, &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
+  PlotSignalsFromArray(Data,names, ...)
+  PlotSignalsFromArray(Signals,names, ...)
  
   Plots a mixed set of named signals as a grouping within subplots, 
   each subplot containing the given signal set drawn from successive 
@@ -4372,7 +4372,7 @@ For categories, type "help vtool" or see "Contents.m".
   to form an implied dataset or dataset array, respectively, and 
   the function proceeds accordingly. 
  
-  See also "PlotSignalsInCombination". 
+  See also "PlotSignalsFromArray". 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
 </TR>

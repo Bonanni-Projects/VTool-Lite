@@ -1,12 +1,12 @@
-function PlotSignalsInCombination(obj,names,varargin)
+function PlotSignalsFromArray(obj,names,varargin)
 
-% PLOTSIGNALSINCOMBINATION - Plot a mixed signal combination from an array.
-% PlotSignalsInCombination(DATA,names)
-% PlotSignalsInCombination(SIGNALS,names)
-% PlotSignalsInCombination(DATA,names,    <Option1>,<Value>,<Option2>,<Value>,...)
-% PlotSignalsInCombination(SIGNALS,names, <Option1>,<Value>,<Option2>,<Value>,...)
-% PlotSignalsInCombination(Data,names, ...)
-% PlotSignalsInCombination(Signals,names, ...)
+% PLOTSIGNALSFROMARRAY - Plot one or more grouped signals from an array.
+% PlotSignalsFromArray(DATA,names)
+% PlotSignalsFromArray(SIGNALS,names)
+% PlotSignalsFromArray(DATA,names,    <Option1>,<Value>,<Option2>,<Value>,...)
+% PlotSignalsFromArray(SIGNALS,names, <Option1>,<Value>,<Option2>,<Value>,...)
+% PlotSignalsFromArray(Data,names, ...)
+% PlotSignalsFromArray(Signals,names, ...)
 %
 % Plots a mixed set of named signals as a grouping within subplots, 
 % each subplot containing the given signal set drawn from successive 

@@ -32,7 +32,7 @@ function PlotSignalsInDataset(obj,Names,varargin)
 % to form an implied dataset or dataset array, respectively, and 
 % the function proceeds accordingly. 
 %
-% See also "PlotSignalsInCombination". 
+% See also "PlotSignalsFromArray". 
 %
 % P.G. Bonanni
 % 12/5/20
