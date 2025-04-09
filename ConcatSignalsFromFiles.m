@@ -1,9 +1,10 @@
-function ConcatSignalsFromFiles(varargin)
+function out = ConcatSignalsFromFiles(varargin)
 
 % CONCATSIGNALSFROMFILES - Concatenate signals from data files in a folder.
 % ConcatSignalsFromFiles(dname,filetype [,outfolder])
 % ConcatSignalsFromFiles(pathnames,outfolder)
 % ConcatSignalsFromFiles(..., <Option1>,<Value>,<Option2>,{Value>,...)
+% results = ConcatSignalsFromFiles(...)
 %
 % Files used: "names.txt"
 %             "include.txt"
@@ -75,6 +76,15 @@ function ConcatSignalsFromFiles(varargin)
 % provided, is enclosed in parentheses and appended at the end of the 
 % final filename root. 
 %
+% Optional output 'results' is a structure or structure array with fields: 
+%   'pathnames'  -  list of input file pathnames, 
+%   'Contents'   -  table listing file contents and attributes, 
+%   'outfile'    -  full pathname to the output file, 
+% with the dimension of results depending on the number of "categories". 
+% If the output argument is supplied and the specified outfolder is [] 
+% or missing, the assembled results are returned as fields of the output 
+% structure or structure array and no output file(s) are saved or listed. 
+%
 % See also "CollectSignalsFromFiles", "ConcatSignalsFromResults", etc. 
 %
 % P.G. Bonanni
@@ -123,7 +133,7 @@ if ~iscell(inp)
   end
 else  % if iscell(inp)
   if nargin < 2
-    error('Must specify ''outfolder'' if ''pathnames'' are specified.')
+    vars{2} = [];
   end
   dname     = '.';
   pathnames = vars{1};
@@ -184,21 +194,21 @@ if isnumeric(downsampfactor) && isempty(downsampfactor)
 end
 
 % Check that 'outfolder' is specified when required
-if iscell(inp) && isempty(outfolder)
+if ~nargout && iscell(inp) && isempty(outfolder)
   error('Must specify ''outfolder'' if ''pathnames'' are specified.')
 end
 
 % Set default output folder if necessary
-if ischar(inp) && isempty(outfolder), outfolder=dname; end
+if ~nargout && ischar(inp) && isempty(outfolder), outfolder=dname; end
 
 % Check that 'dname' and 'outfolder' are valid
 if ~ischar(dname)
   error('Specified ''dname'' is not valid.')
 elseif ~isdir(dname)
   error('Specified ''dname'' (''%s'') does not exist.',dname)
-elseif ~ischar(outfolder)
+elseif ~ischar(outfolder) && ~(isnumeric(outfolder) && isempty(outfolder))
   error('Specified ''outfolder'' is not valid.')
-elseif ~isdir(outfolder)
+elseif ~isempty(outfolder) && ~isdir(outfolder)
   error('Specified ''outfolder'' (''%s'') does not exist.',outfolder)
 end
 
@@ -268,6 +278,9 @@ if ~isempty(categoryfun)
   categories = cellfun(categoryfun,rootnames,'Uniform',false);
   Categories = unique(categories,'stable');
 
+  % Initialize 'results'
+  results = [];
+
   % Process pathnames by category
   for k = 1:length(Categories)
     category = Categories{k};
@@ -275,13 +288,23 @@ if ~isempty(categoryfun)
     pathnames1 = pathnames(mask);
 
     % Process pathnames within the current category
-    results = ProcessFiles(pathnames1,sourcetype,downsampfactor,nanseparators,names);
+    results1 = ProcessFiles(pathnames1,sourcetype,downsampfactor,nanseparators,names);
 
     % Save results
-    fname = sprintf('joined_signals_%s%s.mat',category,tagstr);
-    outfile = fullfile(outfolder,fname);
-    save(outfile,'-v7.3','-struct','results');
-    fprintf('File "%s" written.\n',outfile);
+    if ~isempty(outfolder)
+      fname = sprintf('joined_signals_%s%s.mat',category,tagstr);
+      outfile = fullfile(outfolder,fname);
+      results1.outfile = outfile;
+      % --- Separate info fields from saved output
+      results0 = rmfield(results1,{'pathnames','selections','Contents','outfile'});
+      results1 = rmfield(results1,setdiff(fieldnames(results1),{'pathnames','selections','Contents','outfile'}));
+      % --- Save assembled data only
+      save(outfile,'-v7.3','-struct','results0');
+      fprintf('File "%s" written.\n',outfile);
+    end
+
+    % Append to output structure
+    results = [results; results1];
   end
 
 else
@@ -289,10 +312,21 @@ else
   results = ProcessFiles(pathnames,sourcetype,downsampfactor,nanseparators,names);
 
   % Save results
-  fname = sprintf('joined_signals%s.mat',tagstr);
-  outfile = fullfile(outfolder,fname);
-  save(outfile,'-v7.3','-struct','results');
-  fprintf('File "%s" written.\n',outfile);
+  if ~isempty(outfolder)
+    fname = sprintf('joined_signals%s.mat',tagstr);
+    outfile = fullfile(outfolder,fname);
+    results.outfile = outfile;
+    % --- Separate info fields from saved output
+    results0 = rmfield(results,{'pathnames','selections','Contents','outfile'});
+    results  = rmfield(results,setdiff(fieldnames(results),{'pathnames','selections','Contents','outfile'}));
+    % --- Save assembled data only
+    save(outfile,'-v7.3','-struct','results0');
+    fprintf('File "%s" written.\n',outfile);
+  end
+end
+
+if nargout
+  out = results;
 end
 
 
@@ -351,7 +385,25 @@ for k = 1:ncases
   end
 end
 
+% Initialize 'results'
+vnames = {'Signals','Time'};
+nvars = length(vnames);
+results.pathnames  = pathnames;
+results.selections = names;
+results.Contents = table(repmat("",nvars,1),repmat({'n/a'},nvars,1),'RowNames',vnames,'VariableNames',{'Type','DataLength'});
+
 % Return results
-results.Signals = Signals;
-results.Time    = Time;
-results.fnames  = fnames;
+vname = vnames{1};
+results.(vname) = Signals;
+results.Contents{vname,'Type'} = string(describe(results.(vname)));
+results.Contents{vname,'DataLength'} = {GetDataLength(results.(vname))};
+% ---
+vname = vnames{2};
+results.(vname) = Time;
+results.Contents{vname,'Type'} = string(describe(results.(vname)));
+results.Contents{vname,'DataLength'} = {GetDataLength(results.(vname))};
+
+% Add filenames field and table entry
+results.fnames = fnames;
+results.Contents = [results.Contents; table("",{'n/a'},'RowNames',{'fnames'},'VariableNames',{'Type','DataLength'})];  % initialize
+results.Contents{'fnames','Type'} = string(describe(results.fnames));

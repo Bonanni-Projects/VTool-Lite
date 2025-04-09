@@ -1,9 +1,10 @@
-function CollectSignalsFromResults(inp,outfolder,varargin)
+function out = CollectSignalsFromResults(inp,outfolder,varargin)
 
 % COLLECTSIGNALSFROMRESULTS - Collect signals from result files in a folder.
 % CollectSignalsFromResults(dname [,outfolder])
 % CollectSignalsFromResults(pathnames,outfolder)
 % CollectSignalsFromResults(..., <Option1>,<Value>,<Option2>,{Value>,...)
+% results = CollectSignalsFromResults(...)
 %
 % Files used: "names.txt"
 %             "include.txt"
@@ -98,6 +99,15 @@ function CollectSignalsFromResults(inp,outfolder,varargin)
 % enclosed in parentheses and appended at the end of the final filename 
 % root. 
 %
+% Optional output 'results' is a structure or structure array with fields: 
+%   'pathnames'  -  list of input file pathnames, 
+%   'Contents'   -  table listing file contents and attributes, 
+%   'outfile'    -  full pathname to the output file, 
+% with the dimension of results depending on the number of "categories". 
+% If the output argument is supplied and the specified outfolder is [] 
+% or missing, the assembled results are returned as fields of the output 
+% structure or structure array and no output file(s) are saved or listed. 
+%
 % See also "ConcatSignalsFromResults", "CollectSignalsFromFiles", etc. 
 %
 % P.G. Bonanni
@@ -185,7 +195,7 @@ if iscell(inp) && ~iscellstr(inp)
 end
 
 % Check that 'outfolder' is specified when required
-if iscell(inp) && isempty(outfolder)
+if ~nargout && iscell(inp) && isempty(outfolder)
   error('Must specify ''outfolder'' if ''pathnames'' are specified.')
 end
 
@@ -193,16 +203,16 @@ end
 if ischar(inp), dname=inp; else dname='.'; end
 
 % Set default output folder if necessary
-if ischar(inp) && isempty(outfolder), outfolder=dname; end
+if ~nargout && ischar(inp) && isempty(outfolder), outfolder=dname; end
 
 % Check that 'dname' and 'outfolder' are valid
 if ~ischar(dname)
   error('Specified ''dname'' is not valid.')
 elseif ~isdir(dname)
   error('Specified ''dname'' (''%s'') does not exist.',dname)
-elseif ~ischar(outfolder)
+elseif ~ischar(outfolder) && ~(isnumeric(outfolder) && isempty(outfolder))
   error('Specified ''outfolder'' is not valid.')
-elseif ~isdir(outfolder)
+elseif ~isempty(outfolder) && ~isdir(outfolder)
   error('Specified ''outfolder'' (''%s'') does not exist.',outfolder)
 end
 
@@ -265,6 +275,9 @@ if ~isempty(categoryfun)
   categories = cellfun(categoryfun,rootnames,'Uniform',false);
   Categories = unique(categories,'stable');
 
+  % Initialize 'results'
+  results = [];
+
   % Process pathnames by category
   for k = 1:length(Categories)
     category = Categories{k};
@@ -272,13 +285,23 @@ if ~isempty(categoryfun)
     pathnames1 = pathnames(mask);
 
     % Process pathnames within the current category
-    results = ProcessResultsFiles(pathnames1,loadfun,downsampfactor,timerange,names);
+    results1 = ProcessResultsFiles(pathnames1,loadfun,downsampfactor,timerange,names);
 
     % Save results
-    fname = sprintf('collected_signals_%s%s.mat',category,tagstr);
-    outfile = fullfile(outfolder,fname);
-    save(outfile,'-v7.3','-struct','results');
-    fprintf('File "%s" written.\n',outfile);
+    if ~isempty(outfolder)
+      fname = sprintf('collected_signals_%s%s.mat',category,tagstr);
+      outfile = fullfile(outfolder,fname);
+      results1.outfile = outfile;
+      % --- Separate info fields from saved output
+      results0 = rmfield(results1,{'pathnames','selections','Contents','outfile'});
+      results1 = rmfield(results1,setdiff(fieldnames(results1),{'pathnames','selections','Contents','outfile'}));
+      % --- Save assembled data only
+      save(outfile,'-v7.3','-struct','results0');
+      fprintf('File "%s" written.\n',outfile);
+    end
+
+    % Append to output structure
+    results = [results; results1];
   end
 
 else
@@ -286,10 +309,21 @@ else
   results = ProcessResultsFiles(pathnames,loadfun,downsampfactor,timerange,names);
 
   % Save results
-  fname = sprintf('collected_signals%s.mat',tagstr);
-  outfile = fullfile(outfolder,fname);
-  save(outfile,'-v7.3','-struct','results');
-  fprintf('File "%s" written.\n',outfile);
+  if ~isempty(outfolder)
+    fname = sprintf('collected_signals%s.mat',tagstr);
+    outfile = fullfile(outfolder,fname);
+    results.outfile = outfile;
+    % --- Separate info fields from saved output
+    results0 = rmfield(results,{'pathnames','selections','Contents','outfile'});
+    results  = rmfield(results,setdiff(fieldnames(results),{'pathnames','selections','Contents','outfile'}));
+    % --- Save assembled data only
+    save(outfile,'-v7.3','-struct','results0');
+    fprintf('File "%s" written.\n',outfile);
+  end
+end
+
+if nargout
+  out = results;
 end
 
 
@@ -374,10 +408,18 @@ end
 % Update variable names
 vnames = fieldnames(S);
 
+% Initialize 'results'
+nvars = length(vnames);
+results.pathnames  = pathnames;
+results.selections = names;
+results.Contents = table(repmat("",nvars,1),repmat({'n/a'},nvars,1),'RowNames',vnames,'VariableNames',{'Type','DataLength'});
+
 % Concatenate variables into arrays matching 'pathnames' in dimension
 for j = 1:length(vnames)
   vname = vnames{j};   % variable name
-  if isstruct(S(1).(vname)) && isscalar(S(1).(vname))
+  if IsSignalGroup(S(1).(vname))
+    results.(vname) = cat(1,S.(vname));
+  elseif isstruct(S(1).(vname)) && isscalar(S(1).(vname))
     results.(vname) = cat(1,S.(vname));
   else  % all other types
     results.(vname) = {S.(vname)}';
@@ -386,38 +428,54 @@ for j = 1:length(vnames)
   if numel(results.(vname)) == ncases
     results.(vname) = reshape(results.(vname), size(pathnames));
   end
+  % After reshaping ...
+  results.Contents{vname,'Type'} = string(describe(results.(vname)));
+  if IsSignalGroup(S(1).(vname))
+    results.Contents{vname,'DataLength'} = {GetDataLength(results.(vname))};
+  end
 end
 
 % Check if all 'TIMES' arrays (or all 'Time' groups) are equal.
 % If so, reduce to a single field called 'TIMES' (or 'Time').
+fields = fieldnames(results);  % revised list of fields
 mask1 = structfun(@(x)IsSignalGroup(     x,'Time'),results);
 mask2 = structfun(@(x)IsSignalGroupArray(x,'Time'),results);  mask2(mask1)=false;
 if sum(mask1) > 1 && all(~mask2)  % if more than one 'Time' and no 'TIMES' arrays
   C=struct2cell(results);  C=C(mask1);
   if isequal(C{:})
     results.Time = C{1};
-    results = rmfield(results,vnames(mask1));
+    results = rmfield(results,fields(mask1));
+    results.Contents(mask1(4:end),:) = [];  % ... accounts for first three fieldnames not being in Contents
+    results.Contents = [results.Contents; table("",{'n/a'},'RowNames',{'Time'},'VariableNames',{'Type','DataLength'})];  % initialize
+    results.Contents{'Time','Type'} = string(describe(results.Time));
+    results.Contents{'Time','DataLength'} = {GetDataLength(results.Time)};
   end
 elseif sum(mask2) > 1 && all(~mask1)  % if more than one 'TIMES' array and no 'Time' group
   C=struct2cell(results);  C=C(mask2);
   if isequal(C{:})
     results.TIMES = C{1};
-    results = rmfield(results,vnames(mask2));
+    results = rmfield(results,fields(mask2));
+    results.Contents(mask2(4:end),:) = [];  % ... accounts for first three fieldnames not being in Contents
+    results.Contents = [results.Contents; table("",{'n/a'},'RowNames',{'TIMES'},'VariableNames',{'Type','DataLength'})];  % initialize
+    results.Contents{'TIMES','Type'} = string(describe(results.TIMES));
+    results.Contents{'TIMES','DataLength'} = {GetDataLength(results.TIMES)};
   end
 end
 
-% Add filenames field
+% Add filenames field and table entry
 results.fnames = fnames;
+results.Contents = [results.Contents; table("",{'n/a'},'RowNames',{'fnames'},'VariableNames',{'Type','DataLength'})];  % initialize
+results.Contents{'fnames','Type'} = string(describe(results.fnames));
 
 % Check signal group arrays for validity and data-length uniformity
-vnames = fieldnames(results);  % final list of variables
-for j = 1:length(vnames)
-  vname = vnames{j};  % variable name
-  [flag,valid,warning1] = IsSignalGroupArray(results.(vname));
-  if flag && numel(results.(vname)) > 1
-    nvec = arrayfun(@(x)size(x.Values,1),results.(vname));
+fields = fieldnames(results);  % final list of fields
+for j = 1:length(fields)
+  field = fields{j};  % variable name
+  [flag,valid,warning1] = IsSignalGroupArray(results.(field));
+  if flag && numel(results.(field)) > 1
+    nvec = arrayfun(@(x)size(x.Values,1),results.(field));
     warning2 = 'Data lengths are not uniform.';
-    if ~valid,              fprintf('WARNING on ''%s'': %s\n',vname,warning1); end
-    if ~all(nvec==nvec(1)), fprintf('WARNING on ''%s'': %s\n',vname,warning2); end
+    if ~valid,              fprintf('WARNING on ''%s'': %s\n',field,warning1); end
+    if ~all(nvec==nvec(1)), fprintf('WARNING on ''%s'': %s\n',field,warning2); end
   end
 end

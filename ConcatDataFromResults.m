@@ -1,9 +1,10 @@
-function ConcatDataFromResults(inp,outfolder,varargin)
+function out = ConcatDataFromResults(inp,outfolder,varargin)
 
 % CONCATDATAFROMRESULTS - Concatenate datasets from result files in a folder.
 % ConcatDataFromResults(dname [,outfolder])
 % ConcatDataFromResults(pathnames,outfolder)
 % ConcatDataFromResults(..., <Option1>,<Value>,<Option2>,{Value>,...)
+% results = ConcatDataFromResults(...)
 %
 % Files used: "include.txt"
 %             "exclude.txt"
@@ -74,6 +75,15 @@ function ConcatDataFromResults(inp,outfolder,varargin)
 % named "joined_datasets_*.mat", with the derived category strings 
 % appended.  The 'OutputTag' string, if provided, is enclosed in 
 % parentheses and appended at the end of the final filename root. 
+%
+% Optional output 'results' is a structure or structure array with fields: 
+%   'pathnames'  -  list of input file pathnames, 
+%   'Contents'   -  table listing file contents and attributes, 
+%   'outfile'    -  full pathname to the output file, 
+% with the dimension of results depending on the number of "categories". 
+% If the output argument is supplied and the specified outfolder is [] 
+% or missing, the assembled results are returned as fields of the output 
+% structure or structure array and no output file(s) are saved or listed. 
 %
 % See also "CollectDataFromResults", "ConcatDataFromFiles", etc. 
 %
@@ -164,7 +174,7 @@ if iscell(inp) && ~iscellstr(inp)
 end
 
 % Check that 'outfolder' is specified when required
-if iscell(inp) && isempty(outfolder)
+if ~nargout && iscell(inp) && isempty(outfolder)
   error('Must specify ''outfolder'' if ''pathnames'' are specified.')
 end
 
@@ -172,16 +182,16 @@ end
 if ischar(inp), dname=inp; else dname='.'; end
 
 % Set default output folder if necessary
-if ischar(inp) && isempty(outfolder), outfolder=dname; end
+if ~nargout && ischar(inp) && isempty(outfolder), outfolder=dname; end
 
 % Check that 'dname' and 'outfolder' are valid
 if ~ischar(dname)
   error('Specified ''dname'' is not valid.')
 elseif ~isdir(dname)
   error('Specified ''dname'' (''%s'') does not exist.',dname)
-elseif ~ischar(outfolder)
+elseif ~ischar(outfolder) && ~(isnumeric(outfolder) && isempty(outfolder))
   error('Specified ''outfolder'' is not valid.')
-elseif ~isdir(outfolder)
+elseif ~isempty(outfolder) && ~isdir(outfolder)
   error('Specified ''outfolder'' (''%s'') does not exist.',outfolder)
 end
 
@@ -223,6 +233,9 @@ if ~isempty(categoryfun)
   categories = cellfun(categoryfun,rootnames,'Uniform',false);
   Categories = unique(categories,'stable');
 
+  % Initialize 'results'
+  results = [];
+
   % Process pathnames by category
   for k = 1:length(Categories)
     category = Categories{k};
@@ -230,23 +243,33 @@ if ~isempty(categoryfun)
     pathnames1 = pathnames(mask);
 
     % Process pathnames within the current category
-    results = ProcessResultsFiles(pathnames1,loadfun,downsampfactor,nanseparators);
+    results1 = ProcessResultsFiles(pathnames1,loadfun,downsampfactor,nanseparators);
 
     % Compress 'casename' fields to the category string
-    vnames = fieldnames(results);  % get variable names
+    vnames = fieldnames(results1);  % get variable names
     for j = 1:length(vnames)
       vname = vnames{j};   % variable name
-      if IsDataset(results.(vname)) && isfield(results.(vname),'casename')
-        results.(vname).casename = category;
+      if IsDataset(results1.(vname)) && isfield(results1.(vname),'casename')
+        results1.(vname).casename = category;
         fprintf('Dataset ''%s'' casename changed to ''%s''.\n',vname,category);
       end
     end
 
     % Save results
-    fname = sprintf('joined_datasets_%s%s.mat',category,tagstr);
-    outfile = fullfile(outfolder,fname);
-    save(outfile,'-v7.3','-struct','results');
-    fprintf('File "%s" written.\n',outfile);
+    if ~isempty(outfolder)
+      fname = sprintf('joined_datasets_%s%s.mat',category,tagstr);
+      outfile = fullfile(outfolder,fname);
+      results1.outfile = outfile;
+      % --- Separate info fields from saved output
+      results0 = rmfield(results1,{'pathnames','Contents','outfile'});
+      results1 = rmfield(results1,setdiff(fieldnames(results1),{'pathnames','Contents','outfile'}));
+      % --- Save assembled data only
+      save(outfile,'-v7.3','-struct','results0');
+      fprintf('File "%s" written.\n',outfile);
+    end
+
+    % Append to output structure
+    results = [results; results1];
   end
 
 else
@@ -254,12 +277,22 @@ else
   results = ProcessResultsFiles(pathnames,loadfun,downsampfactor,nanseparators);
 
   % Save results
-  fname = sprintf('joined_datasets%s.mat',tagstr);
-  outfile = fullfile(outfolder,fname);
-  save(outfile,'-v7.3','-struct','results');
-  fprintf('File "%s" written.\n',outfile);
+  if ~isempty(outfolder)
+    fname = sprintf('joined_datasets%s.mat',tagstr);
+    outfile = fullfile(outfolder,fname);
+    results.outfile = outfile;
+    % --- Separate info fields from saved output
+    results0 = rmfield(results,{'pathnames','Contents','outfile'});
+    results  = rmfield(results,setdiff(fieldnames(results),{'pathnames','Contents','outfile'}));
+    % --- Save assembled data only
+    save(outfile,'-v7.3','-struct','results0');
+    fprintf('File "%s" written.\n',outfile);
+  end
 end
 
+if nargout
+  out = results;
+end
 
 
 % -------------------------------------------------------------------------------------
@@ -320,17 +353,28 @@ for k = 1:ncases
   S = [S; s];
 end
 
+% Initialize 'results'
+nvars = length(vnames);
+results.pathnames = pathnames;
+results.Contents = table(repmat("",nvars,1),repmat({'n/a'},nvars,1),'RowNames',vnames,'VariableNames',{'Type','DataLength'});
+
 % Concatenate variables
 for j = 1:length(vnames)
   vname = vnames{j};  % variable name
   if isdataset(j)
     results.(vname) = ConcatDatasets(S.(vname));
+    results.Contents{vname,'Type'} = string(describe(results.(vname)));
+    results.Contents{vname,'DataLength'} = {GetDataLength(results.(vname))};
   elseif isstruct(S(1).(vname)) && isscalar(S(1).(vname))
     results.(vname) = cat(1,S.(vname));
+    results.Contents{vname,'Type'} = string(describe(results.(vname)));
   else  % all other types
     results.(vname) = {S.(vname)}';
+    results.Contents{vname,'Type'} = string(describe(results.(vname)));
   end
 end
 
-% Add filenames field
+% Add filenames field and table entry
 results.fnames = fnames;
+results.Contents = [results.Contents; table("",{'n/a'},'RowNames',{'fnames'},'VariableNames',{'Type','DataLength'})];  % initialize
+results.Contents{'fnames','Type'} = string(describe(results.fnames));

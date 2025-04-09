@@ -8,7 +8,7 @@ Contents Reference
 <br>
 <TABLE border=0 width="800" cellSpacing=0 cellPadding=0>
 <TBODY>
-<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 7/20/24</address></font></TD></TR>
+<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 4/9/25</address></font></TD></TR>
 </TBODY>
 </TABLE>
 <p><small><font face="arial">
@@ -805,6 +805,7 @@ For categories, type "help vtool" or see "Contents.m".
   CollectDataFromFiles(dname,filetype,datafun [,outfolder])
   CollectDataFromFiles(pathnames,datafun,outfolder)
   CollectDataFromFiles(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = CollectDataFromFiles(...)
  
   Files used: "include.txt"
               "exclude.txt"
@@ -863,6 +864,15 @@ For categories, type "help vtool" or see "Contents.m".
   The 'OutputTag' string, if provided, is enclosed in parentheses and 
   appended at the end of the final filename root. 
  
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
+ 
   See also "ConcatDataFromFiles", "CollectDataFromResults", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
@@ -874,6 +884,7 @@ For categories, type "help vtool" or see "Contents.m".
   CollectDataFromResults(dname [,outfolder])
   CollectDataFromResults(pathnames,outfolder)
   CollectDataFromResults(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = CollectDataFromResults(...)
  
   Files used: "include.txt"
               "exclude.txt"
@@ -948,6 +959,15 @@ For categories, type "help vtool" or see "Contents.m".
   provided, is enclosed in parentheses and appended at the end of the 
   final filename root. 
  
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
+ 
   See also "ConcatDataFromResults", "CollectDataFromFiles", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
@@ -973,6 +993,7 @@ For categories, type "help vtool" or see "Contents.m".
   CollectSignalsFromFiles(dname,filetype [,outfolder])
   CollectSignalsFromFiles(pathnames,outfolder)
   CollectSignalsFromFiles(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = CollectSignalsFromFiles(...)
  
   Files used: "names.txt"
               "include.txt"
@@ -1049,6 +1070,15 @@ For categories, type "help vtool" or see "Contents.m".
   if provided, is enclosed in parentheses and appended at the end of 
   the final filename root. 
  
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
+ 
   See also "ConcatSignalsFromFiles", "CollectSignalsFromResults", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
@@ -1060,6 +1090,7 @@ For categories, type "help vtool" or see "Contents.m".
   CollectSignalsFromResults(dname [,outfolder])
   CollectSignalsFromResults(pathnames,outfolder)
   CollectSignalsFromResults(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = CollectSignalsFromResults(...)
  
   Files used: "names.txt"
               "include.txt"
@@ -1153,6 +1184,15 @@ For categories, type "help vtool" or see "Contents.m".
   category strings appended.  The 'OutputTag' string, if provided, is 
   enclosed in parentheses and appended at the end of the final filename 
   root. 
+ 
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
  
   See also "ConcatSignalsFromResults", "CollectSignalsFromFiles", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
@@ -2043,6 +2083,7 @@ For categories, type "help vtool" or see "Contents.m".
   ConcatDataFromFiles(dname,filetype,datafun [,outfolder])
   ConcatDataFromFiles(pathnames,datafun,outfolder)
   ConcatDataFromFiles(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = ConcatDataFromFiles(...)
  
   Files used: "include.txt"
               "exclude.txt"
@@ -2097,6 +2138,15 @@ For categories, type "help vtool" or see "Contents.m".
   appended.  The 'OutputTag' string, if provided, is enclosed in 
   parentheses and appended at the end of the final filename root. 
  
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
+ 
   See also "CollectDataFromFiles", "ConcatDataFromResults", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
@@ -2108,6 +2158,7 @@ For categories, type "help vtool" or see "Contents.m".
   ConcatDataFromResults(dname [,outfolder])
   ConcatDataFromResults(pathnames,outfolder)
   ConcatDataFromResults(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = ConcatDataFromResults(...)
  
   Files used: "include.txt"
               "exclude.txt"
@@ -2179,6 +2230,15 @@ For categories, type "help vtool" or see "Contents.m".
   appended.  The 'OutputTag' string, if provided, is enclosed in 
   parentheses and appended at the end of the final filename root. 
  
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
+ 
   See also "CollectDataFromResults", "ConcatDataFromFiles", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
@@ -2232,6 +2292,7 @@ For categories, type "help vtool" or see "Contents.m".
   ConcatSignalsFromFiles(dname,filetype [,outfolder])
   ConcatSignalsFromFiles(pathnames,outfolder)
   ConcatSignalsFromFiles(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = ConcatSignalsFromFiles(...)
  
   Files used: "names.txt"
               "include.txt"
@@ -2303,6 +2364,15 @@ For categories, type "help vtool" or see "Contents.m".
   provided, is enclosed in parentheses and appended at the end of the 
   final filename root. 
  
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
+ 
   See also "CollectSignalsFromFiles", "ConcatSignalsFromResults", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
@@ -2314,6 +2384,7 @@ For categories, type "help vtool" or see "Contents.m".
   ConcatSignalsFromResults(dname [,outfolder])
   ConcatSignalsFromResults(pathnames,outfolder)
   ConcatSignalsFromResults(..., &lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,{Value&gt;,...)
+  results = ConcatSignalsFromResults(...)
  
   Files used: "names.txt"
               "include.txt"
@@ -2403,6 +2474,15 @@ For categories, type "help vtool" or see "Contents.m".
   "joined_signals_*.mat", with the derived category strings appended. 
   The 'OutputTag' string, if provided, is enclosed in parentheses and 
   appended at the end of the final filename root. 
+ 
+  Optional output 'results' is a structure or structure array with fields: 
+    'pathnames'  -  list of input file pathnames, 
+    'Contents'   -  table listing file contents and attributes, 
+    'outfile'    -  full pathname to the output file, 
+  with the dimension of results depending on the number of "categories". 
+  If the output argument is supplied and the specified outfolder is [] 
+  or missing, the assembled results are returned as fields of the output 
+  structure or structure array and no output file(s) are saved or listed. 
  
   See also "CollectSignalsFromResults", "ConcatSignalsFromFiles", etc. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
