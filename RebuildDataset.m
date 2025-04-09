@@ -142,8 +142,8 @@ for k = 1:length(groups1)
   % Initialize
   class0 = class(Master.Values);  % preserve original class (single/double)
   Data.(group).Values       = nan(npoints,nsignals,class0);
-  Data.(group).Units        = cell(nsignals,1);
-  Data.(group).Descriptions = cell(nsignals,1);
+  Data.(group).Units        = repmat({''},nsignals,1);
+  Data.(group).Descriptions = repmat({''},nsignals,1);
 
   % Populate with signal data extracted from Master
   [Signals,ismatched] = SelectFromGroup(names,Master);

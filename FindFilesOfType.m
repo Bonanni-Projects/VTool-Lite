@@ -80,7 +80,7 @@ if iscell(dname)
   if ~isequal(pathnames,pathnamesi)
     pathnames = pathnamesi;
     fnames =    fnames(i);
-    fprintf('Duplicated removed.\n');
+    fprintf('Duplicates removed.\n');
   end
   return
 end

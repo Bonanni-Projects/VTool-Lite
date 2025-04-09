@@ -124,7 +124,7 @@ else
 end
 
 % Set a tag string with current timestamp
-tag = sprintf('PlotSignalsInCombination: %s', datestr(now));
+tag = sprintf('PlotSignalsFromArray: %s', datestr(now));
 
 % Plot the signal group array, passing all options
 PlotSignalGroup(TIMES,SIGNALS,varargin{:},'tag',tag)
