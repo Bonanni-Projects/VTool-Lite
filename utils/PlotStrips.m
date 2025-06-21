@@ -36,7 +36,7 @@ if ~isnumeric(Ts) || ~isscalar(Ts)
   error('Input ''Ts'' is not valid.')
 elseif Ts <= 0
   error('Sample time ''Ts'' must be positive.')
-elseif ~ischar(layer)
+elseif ~ischar(layer) || (~isempty(layer) && ~ismember(layer,GetLayers(SIGNALS(1))))
   error('Input ''layer'' is not valid.')
 end
 
@@ -44,7 +44,7 @@ end
 if isempty(layer)
   names = GetDefaultNames(SIGNALS);
 else
-  names = GetNames(SIGNALS(1),layer);
+  names = SIGNALS(1).(layer);
 end
 
 % Ensure common signal length
