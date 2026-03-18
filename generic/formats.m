@@ -4,8 +4,8 @@
 % The following file formats are supported: 
 %
 % - VTool format (.vtl)
-%   Native format for VTool. See function "MakeVtlFile". This format 
-%   loads very fast is is space efficient. 
+%   Native format for VTool. See function "MakeVtlFile". See also 
+%   "ConvertToVtl".  This format loads fast and is space efficient. 
 %
 % - S-array format (S_*.mat)
 %   Format supporting signals with differing sample rates.  See function 
@@ -23,9 +23,15 @@
 %
 % - Spreadsheet (*.xlsx, *.xls, *.csv)
 %   Data in "named columns" from an Excel spreadsheet or .csv file.  
-%   All entries in the "header row" must be valid variable names.  The 
-%   first column must be named 'Time' and contain Excel date numbers or 
-%   date-time strings.  Remaining columns must be of matching length. 
+%   All entries in the "header row" should be valid variable names.  
+%   Optional 'Time' column should contain real values (e.g., seconds), 
+%   Excel date numbers, or date-time strings. Remaining columns must be 
+%   of matching length. 
+%
+% - Parquet format (*.parquet)
+%   Column-oriented data from a .parquet file. Column names should be 
+%   valid variable names. Optional 'Time' column should contain real values 
+%   (e.g., seconds), real-valued date numbers, or datetime values. 
 %
 % See also "IsFileType". 
 %

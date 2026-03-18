@@ -144,6 +144,7 @@
 %   ExtractData               - Extract data from a file (PRIMARY USER INTERFACE FUNCTION).
 %   ReadSarrayFile            - Read signal data from an S-array file.
 %   ReadXlsFile               - Read signal data from a spreadsheet file.
+%   ReadParquetFile           - Read signal data from a parquet file.
 %   MakeVtlFile               - Make a .vtl file from time-synchronized data.
 %   MakeSarrayFile            - Make an S-array .mat file from signal data.
 %   ConvertToSarray           - Convert files to S-array .mat files.

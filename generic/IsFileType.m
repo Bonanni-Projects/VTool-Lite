@@ -16,6 +16,7 @@ function mask = IsFileType(list,filetype)
 %    'S-array'   root name beginning with 'S_', file extension .mat
 %    'xls'       file extension matching .xls or .xlsx
 %    'csv'       file extension matching .csv
+%    'parquet'   file extension matching .parquet
 %    '.XXX'      file extension matching the characters 'XXX' following 
 %                the '.' character. 
 % (*) The 'filetype' input and file extensions are not case-sensitive. 
@@ -53,6 +54,8 @@ elseif strcmpi(filetype,'xls')
   mask = strcmpi(Ext,'.xls') | strcmpi(Ext,'.xlsx');
 elseif strcmpi(filetype,'csv')
   mask = strcmpi(Ext,'.csv');
+elseif strcmpi(filetype,'parquet')
+  mask = strcmpi(Ext,'.parquet');
 elseif strncmp(filetype,'.',1)
   mask = strcmpi(Ext,filetype);
 else

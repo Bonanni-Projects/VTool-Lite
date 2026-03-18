@@ -179,6 +179,8 @@ if IsFileType(pathname,'S-array')
   S = ReadSarrayFile(pathname);
 elseif IsFileType(pathname,'xls') || IsFileType(pathname,'csv')
   S = ReadXlsFile(pathname);
+elseif IsFileType(pathname,'parquet')
+  S = ReadParquetFile(pathname);
 else  % otherwise
   error('Format of file ''%s'' is not recognized.',pathname)
 end
