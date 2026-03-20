@@ -113,6 +113,8 @@
 %   PlotDatasetAsStrips       - Plot dataset signals as strips in current axes.
 %   PlotConcatenatedArrays    - Plot concatenated signal group or dataset arrays.
 %   PlotBinnedSequences       - Plot raw sequences, segregated by bin.
+%   HighlightPoints           - Highlight x values on time or frequency plots.
+%   HighlightRegions          - Highlight x regions on time or frequency plots.
 %   FiguresToPPT              - Save current figures to PowerPoint.
 %   FiguresToFile             - Save current figures to a .fig file.
 %   FiguresToPNG              - Save current figures to .png files.
