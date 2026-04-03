@@ -54,6 +54,7 @@ t = Data.Time.Values;
 % Get signal data
 Signals = SelectFromDataset(names,Data);
 Values = Signals.Values;
+MaskN = isnan(Values);
 
 % Find signal bounds, with and without inclusion of 0 values (NOTE: row vectors)
 minvals = min(Values,[],1);    % original
@@ -63,10 +64,11 @@ minvals1 = min(Values1,[],1);  % w/ zeros included
 maxvals1 = max(Values1,[],1);  % w/ zeros included
 
 % Apply the appropriate normalization, and locate zero lines
-if strcmp(option,'normalize')
+if startsWith(option,'normalize')  % includes 'normalized'
   % Apply individual normalization to equal range
   Values = 2*(Values - minvals)./(maxvals-minvals) - 1;
   Values(:,minvals==maxvals) = 0;
+  Values(MaskN) = nan;
   offset0 = 0;
 else
   % Apply a uniform normalization that includes display of 0 line
@@ -77,7 +79,11 @@ else
     offset0 = interp1([minval,maxval],[-0.4,0.4],0);
   else  % if minval==maxval
     Values = zeros(size(Values));
-    if minval>0, offset0=-1; else, offset0=1; end
+    Values(MaskN) = nan;
+    if minval == 0,    offset0 =  0;
+    elseif minval > 0, offset0 = -1;
+    elseif minval < 0, offset0 =  1;
+    end
   end
 end
 
@@ -96,16 +102,24 @@ nameT = Data.Time.(layers{1}){1};
 unitsT = Data.Time.Units{1};
 
 % Generate plot
-h = plot(t,Values);
-xlabel(sprintf('%s (%s)',nameT,unitsT))
+h = plot(t,Values,'LineWidth',1.5);
 set(gca,'XLim',[min(t),max(t)])
 set(gca,'YLim',[0.4,nsignals+0.6])
 set(gca,'YTick',(1:nsignals)'+offset0)
 set(gca,'YTickLabel',flipud(strrep(names,'_','\_')))
 set(gca,'color',get(gcf,'color'))  % erase background color
 
+% Label the time axis
+if ~strcmp(unitsT,'datetime')
+  if ~isempty(unitsT)
+    xlabel(sprintf('%s (%s)',nameT,unitsT))
+  else  % if unitless
+    xlabel(nameT)
+  end
+end
+
 % Suppress y-axis tick marks and "zero lines" for normalized plots
-if strcmp(option,'normalize')
+if startsWith(option,'normalize')  % includes 'normalized'
   set(gca,'XGrid','off','YGrid','off')
   set(get(gca,'YAxis'),'TickLength',[0,0])
 else
