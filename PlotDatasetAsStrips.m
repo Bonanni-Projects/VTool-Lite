@@ -72,18 +72,15 @@ if startsWith(option,'normalize')  % includes 'normalized'
   offset0 = 0;
 else
   % Apply a uniform normalization that includes display of 0 line
-  minval = min(minvals1);
-  maxval = max(maxvals1);
+  minval = min(minvals1);  % min of mins w/ zeros included
+  maxval = max(maxvals1);  % max of maxs w/ zeros included
   if minval~=maxval
     Values = 2*(Values - minval)./(maxval-minval) - 1;
     offset0 = interp1([minval,maxval],[-0.4,0.4],0);
-  else  % if minval==maxval
+  else  % if minval==maxval (can only happen if all signals are 0)
     Values = zeros(size(Values));
     Values(MaskN) = nan;
-    if minval == 0,    offset0 =  0;
-    elseif minval > 0, offset0 = -1;
-    elseif minval < 0, offset0 =  1;
-    end
+    offset0 = 0;
   end
 end
 
