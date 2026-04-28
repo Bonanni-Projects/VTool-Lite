@@ -27,13 +27,13 @@ function n = GetDataLength(obj)
 if ~flag1 && ~flag2 && ~flag3 && ~flag4
   error('Input is not a valid dataset, signal group, or array.')
 elseif flag1 && ~valid1
-  error('Input is not a valid dataset: %s  See "IsDataset".',errmsg1)
+  fprintf('WARNING: %s  See "IsDataset".\n',errmsg1);
 elseif flag2 && ~valid2
-  error('Input is not a valid signal group: %s  See "IsSignalGroup".',errmsg2)
+  fprintf('WARNING: %s  See "IsSignalGroup".\n',errmsg2);
 elseif flag3 && ~valid3
-  error('Input is not a valid dataset array: %s  See "IsDatasetArray".',errmsg3)
+  fprintf('WARNING: %s  See "IsDatasetArray".\n',errmsg3);
 elseif flag4 && ~valid4
-  error('Input is not a valid signal group array: %s  See "IsSignalGroupArray".',errmsg4)
+  fprintf('WARNING: %s  See "IsSignalGroupArray".\n',errmsg4);
 end
 
 % If input is a dataset ...
