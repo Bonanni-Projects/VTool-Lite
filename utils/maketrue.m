@@ -15,6 +15,9 @@ function mask = maketrue(irange,n)
 % P.G. Bonanni
 % 3/2/12
 
+% Copyright (c) 2024  Pierino G. Bonanni
+% Distributed under GNU General Public License v2.0.
+
 
 if nargin < 2
   n = max(irange(:));
