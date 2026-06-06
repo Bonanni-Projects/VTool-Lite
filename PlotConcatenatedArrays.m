@@ -3,8 +3,8 @@ function PlotConcatenatedArrays(varargin)
 % PLOTCONCATENATEDARRAYS - Plot concatenated signal group or dataset arrays.
 % PlotConcatenatedArrays(TIMES,SIGNALS)
 % PlotConcatenatedArrays(DATA)
-% PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'])
-% PlotConcatenatedArrays(DATA1,DATA2,...,'NanSeparators',['on'|'off'])
+% PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'],...)
+% PlotConcatenatedArrays(DATA1,DATA2,...,'NanSeparators',['on'|'off'],...)
 % PlotConcatenatedArrays(...,<Option1>,<Value>,<Option2>,<Value>,...)
 %
 % Plots one or more signal group arrays after concatenation into 
@@ -21,18 +21,23 @@ function PlotConcatenatedArrays(varargin)
 % The function accepts all option/value pairs defined in function 
 % "PlotSignalGroup", which allow selection of signal names, and 
 % additional control over plotting (e.g., legends, title strings, 
-% number of rows per figure window, etc.) In addition, if provided 
-% first, the following option is available: 
+% number of rows per figure window, etc.) The following options are 
+% available in addition: 
 %   'NanSeparators' - 'on' or 'off' (default). If 'on', NaN 
 %                     values are placed at the signal endpoints 
 %                     before concatenation, to force spatial 
 %                     separation between successive sequences, 
 %                     allowing signals from individual array 
 %                     elements to be distinguished. 
+%   'CaseIndexing'  - 'on' or 'off' (default). If 'on', the arrays 
+%                     are padded with NaNs to uniform length and
+%                     x-axis labeling is used to indicate the index 
+%                     of elements within the arrays. Any supplied 
+%                     'TIMES' array is ignored in this case. 
 %
-% Note: The 'NanSeparators' option should not be employed with 
-% 'OptionPSD', 'OptionPSDE' or 'OptionCOH', i.e., when specifying 
-% plotting of power spectral density or coherence plots. 
+% Note: The 'NanSeparators' or 'CaseIndexing' options should not be 
+% employed with 'OptionPSD', 'OptionPSDE' or 'OptionCOH', i.e., when 
+% specifying plotting of power spectral density or coherence plots. 
 %
 % P.G. Bonanni
 % 8/28/21
@@ -120,28 +125,62 @@ if ~valid
   error('The provided signal group arrays are not compatible: %s".',errmsg)
 end
 
-% Build 'TIMES' input as sequenced index vectors if missing
+% Build 'TIMES' input as sequenced index vectors if missing. (Start 
+% out here with indexing by "points". Modify later if 'CaseIndexing'.)
 if isempty(TIMES)
   TIMES = BuildTimeArray(C_SIGNALS{1},'Index',[1,1],'catenate','','Index vector');
 end
 
 % Remaining arguments
 args(i:j) = [];
-if rem(length(args),2) ~= 0
-  error('Invalid option/value pairs.')
-end
-
-% Check for 'NanSeparators' option, process accordingly, and update arguments list
-if ~isempty(args) && ischar(args{1}) && strcmpi(args{1},'NanSeparators')
-  if ~ismember(args{2},{'on','off'})
-    error('Invalid ''NanSeparators'' value: Specify ''on'' or ''off''.')
+if ~isempty(args)
+  % ---
+  if rem(length(args),2) ~= 0
+    error('Invalid option/value pairs.')
+  elseif ~iscellstr(args(1:2:end))
+    error('Invalid option/value pairs.')
+  elseif length(args(1:2:end)) ~= length(unique(args(1:2:end)))
+    error('One or more options is repeated.')
   end
-  if strcmp(args{2},'on')
-    for k = 1:length(C_SIGNALS)
-      C_SIGNALS{k} = ApplyMask(C_SIGNALS{k},'last',nan);
+  % ---
+  % Extract options and values
+  Options = args(1:2:end);
+  Values  = args(2:2:end);
+  % ---
+  % Check for 'CaseIndexing' option, process accordingly, and update arguments list
+  [mask,i] = ismember('CaseIndexing',Options);
+  if any(mask)
+    if ~ischar(Values{i}) || ~ismember(Values{i},{'on','off'})
+      error('Invalid ''CaseIndexing'' value: Specify ''on'' or ''off''.')
     end
+    if strcmp(Values{i},'on')
+      for k = 1:length(C_SIGNALS)
+        C_SIGNALS{k} = PadSignalsToLength(C_SIGNALS{k},nan,'max');
+      end
+      len = height(C_SIGNALS{1}(1).Values);  % uniform data length
+      TIMES = BuildTimeArray(C_SIGNALS{1},'Index',[1-(len-1)/(2*len), 1/len],'catenate','','Index vector');
+    end
+    Options(i) = [];
+    Values(i)  = [];
   end
-  args(1:2) = [];
+  % ---
+  % Check for 'NanSeparators' option, process accordingly, and update arguments list
+  [mask,i] = ismember('NanSeparators',Options);
+  if any(mask)
+    if ~ischar(Values{i}) || ~ismember(Values{i},{'on','off'})
+      error('Invalid ''NanSeparators'' value: Specify ''on'' or ''off''.')
+    end
+    if strcmp(Values{i},'on')
+      for k = 1:length(C_SIGNALS)
+        C_SIGNALS{k} = ApplyMask(C_SIGNALS{k},'last',nan);
+      end
+    end
+    Options(i) = [];
+    Values(i)  = [];
+  end
+  % ---
+  % Rebuild remaining arguments list
+  args = reshape([Options;Values],1,[]);
 end
 
 % Concatenate all signal group arrays
@@ -155,3 +194,41 @@ args = [args,'tag',tag];
 % Plot concatenated sequences
 SIGNALS = cat(1,C_Signals{:});
 PlotSignalGroup(Time,SIGNALS,args{:})
+
+% Force integer x-axis ticks if appropriate when indexing
+if strcmp(TIMES(1).Descriptions{1},'Index vector')
+  [~,~,~,hfig,hax] = GetHandles('current');
+  xl = get(gca,'XLim');  % get current x-axis limits
+  if floor(xl(2)) - ceil(xl(1)) <= 25
+    set(hax,'XTick',ceil(xl(1)):floor(xl(2)))
+    set(hax,'XMinorTick','off')
+  end
+  % --- Set zoom and pan callbacks
+  for k = 1:length(hfig)
+    z = zoom(hfig(k));
+    z.ActionPostCallback = @(~,event)setIntegerTicks(event.Axes);
+    p = pan(hfig(k));
+    p.ActionPostCallback = @(~,event)setIntegerTicks(event.Axes);
+  end
+end
+
+
+
+% ------------------------------------------------------------------------
+% Callback function to set integer ticks
+function setIntegerTicks(ax)
+
+% Get x-axis limits
+xl = get(ax,'XLim');
+
+% Get handles to all axes
+[~,~,~,~,hax] = GetHandles('current');
+
+% Set integer ticks if appropriate
+if floor(xl(2)) - ceil(xl(1)) <= 25
+  set(hax,'XTick',ceil(xl(1)):floor(xl(2)))
+  set(hax,'XMinorTick','off')
+else  % to avoid crowding, e.g., when zooming back out
+  set(hax,'XTickMode','auto')
+  set(hax,'XMinorTick','on')
+end

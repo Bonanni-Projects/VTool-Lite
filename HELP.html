@@ -8,7 +8,7 @@ Contents Reference
 <br>
 <TABLE border=0 width="800" cellSpacing=0 cellPadding=0>
 <TBODY>
-<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 3/19/26</address></font></TD></TR>
+<TR><TD><u><strong id="top"><font face="arial">VTool Function Reference</font><strong></u></TD><TD align="right"><font face="arial" size="2"><address>P.G. Bonanni 6/6/26</address></font></TD></TR>
 </TBODY>
 </TABLE>
 <p><small><font face="arial">
@@ -4145,8 +4145,8 @@ For categories, type "help vtool" or see "Contents.m".
   PLOTCONCATENATEDARRAYS - Plot concatenated signal group or dataset arrays.
   PlotConcatenatedArrays(TIMES,SIGNALS)
   PlotConcatenatedArrays(DATA)
-  PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'])
-  PlotConcatenatedArrays(DATA1,DATA2,...,'NanSeparators',['on'|'off'])
+  PlotConcatenatedArrays(TIMES,SIGNALS1,SIGNALS2,...,'NanSeparators',['on'|'off'],...)
+  PlotConcatenatedArrays(DATA1,DATA2,...,'NanSeparators',['on'|'off'],...)
   PlotConcatenatedArrays(...,&lt;Option1&gt;,&lt;Value&gt;,&lt;Option2&gt;,&lt;Value&gt;,...)
  
   Plots one or more signal group arrays after concatenation into 
@@ -4163,18 +4163,23 @@ For categories, type "help vtool" or see "Contents.m".
   The function accepts all option/value pairs defined in function 
   "PlotSignalGroup", which allow selection of signal names, and 
   additional control over plotting (e.g., legends, title strings, 
-  number of rows per figure window, etc.) In addition, if provided 
-  first, the following option is available: 
+  number of rows per figure window, etc.) The following options are 
+  available in addition: 
     'NanSeparators' - 'on' or 'off' (default). If 'on', NaN 
                       values are placed at the signal endpoints 
                       before concatenation, to force spatial 
                       separation between successive sequences, 
                       allowing signals from individual array 
                       elements to be distinguished. 
+    'CaseIndexing'  - 'on' or 'off' (default). If 'on', the arrays 
+                      are padded with NaNs to uniform length and
+                      x-axis labeling is used to indicate the index 
+                      of elements within the arrays. Any supplied 
+                      'TIMES' array is ignored in this case. 
  
-  Note: The 'NanSeparators' option should not be employed with 
-  'OptionPSD', 'OptionPSDE' or 'OptionCOH', i.e., when specifying 
-  plotting of power spectral density or coherence plots. 
+  Note: The 'NanSeparators' or 'CaseIndexing' options should not be 
+  employed with 'OptionPSD', 'OptionPSDE' or 'OptionCOH', i.e., when 
+  specifying plotting of power spectral density or coherence plots. 
   <font face="arial" size="1"><a href="#top">(back to top)</a></font>
 </PRE></TD>
 </TR>
