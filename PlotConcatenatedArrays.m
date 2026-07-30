@@ -54,6 +54,7 @@ j = find(mask,1,'last');   if ~all(mask(i:j)),  error('Invalid usage.'); end
 
 % Determine if dataset array(s) provided, based on first input. 
 % If so, extract signal group arrays, and proceed with same. 
+% Warn about result if time sampling is not uniform. 
 if IsDatasetArray(args{1})  % Note: args{1} can still be ~valid
   for k = i:j
     [flag,valid,errmsg] = IsDatasetArray(args{k});
@@ -65,6 +66,11 @@ if IsDatasetArray(args{1})  % Note: args{1} can still be ~valid
       if ~valid
         error('Input #%d is not a valid dataset or dataset array: %s  See "IsDatasetArray".',k,errmsg)
       end
+    end
+    [C1,C2] = arrayfun(@GetSampleTime,args{k},'Uniform',false);
+    frac = cellfun(@(c1,c2)diff(c2)/c1,C1,C2);
+    if any(abs(frac) > 0.01)
+      fprintf('WARNING: Non-uniform sampling detected in input #%d. Plots may be distorted.\n',k);
     end
     args{k} = arrayfun(@CollectSignals,args{k});
   end
