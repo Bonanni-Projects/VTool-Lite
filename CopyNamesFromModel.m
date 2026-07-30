@@ -14,7 +14,7 @@ function out = CopyNamesFromModel(obj,obj0,option)
 % preparation for plotting or comparison.  It is only valid if the 
 % model object has matching structure.  For signal groups, the 
 % requirement is a matching number of signals (though signal lengths 
-% need not match). vFor datasets, matching signal group names must 
+% need not match). For datasets, matching signal group names must 
 % be present, and all groups must have matching number of signals. 
 %
 % Also accepts dataset arrays and signal-group arrays. The model 

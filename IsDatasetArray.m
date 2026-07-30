@@ -70,7 +70,7 @@ else
   % Check name layers for homogeneity
   if numel(DATA) > 1
     C = arrayfun(@GetNamesMatrix,DATA,'Uniform',false);
-    if ~all(isequal(C{:}))
+    if ~isequal(C{:})
       valid = false;
       errmsg = 'Non-homogeneous array. Names and/or name orders do not match.';
       varargout = {flag,valid,errmsg};
@@ -85,7 +85,7 @@ else
       Signals = CollectSignals(DATA(k));
       C{k} = Signals.Units;
     end
-    if ~all(isequal(C{:}))
+    if ~isequal(C{:})
       % Find signals with inconsistent units
       UNITS = cat(2,C{:});
       names = GetDefaultNames(DATA(1));
@@ -109,7 +109,7 @@ else
   % Check 'Time' groups for compatibility
   if numel(DATA) > 1
     Times = cat(1,DATA.Time);
-    if ~all(isequal(Times.Units))
+    if ~isequal(Times.Units)
       valid = false;
       errmsg = 'Datasets have incompatible time vectors.';
       varargout = {flag,valid,errmsg};

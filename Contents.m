@@ -25,6 +25,7 @@
 %   ApplyMask                 - Mask signals or groups at selected locations.
 %   ApplyIndex                - Apply integer or binary index to signals or groups.
 %   ApplyFunction             - Apply a function to data in datasets or signal groups.
+%   ApplyFunction2            - Apply a function of two datasets, signal groups, or arrays.
 %   BufferDataset             - Buffer a dataset into a dataset array.
 %   ConcatDatasets            - Concatenate datasets into a single dataset.
 %   NanFillDataset            - Regularize time and fill sampling holes in a dataset.
