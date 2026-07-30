@@ -14,9 +14,9 @@ function obj = ApplyFunction(obj,fun,Selections)
 % group, dataset array, or signal group array.  For datasets, the 
 % 'Selections' input is a cell array specifying a list of signal 
 % and/or group names to which the function should be applied. If 
-% 'Selections' is omitted (or if the character string 'all' is 
-% specified in its place), the function is applied to all groups 
-% in the dataset, including 'Time'. 
+% 'Selections' is omitted, the function is applied to all groups 
+% in the dataset except 'Time'; if 'all' is specified, then 
+% 'Time' is included as well. 
 %
 % Functions are applied "in place", replacing the signal or 
 % group data to which they are applied.  Functions applied to 
@@ -34,7 +34,7 @@ function obj = ApplyFunction(obj,fun,Selections)
 % alter the signal length, provided that the effect on length is 
 % the same for all groups, including 'Time'. 
 %
-% The function works analogously for dataset arrays ('DATA'), 
+% APPLYFUNCTION works analogously for dataset arrays ('DATA'), 
 % signal groups ('Signals'), or signal group arrays ('SIGNALS'), 
 % with the 'Selections' argument appropriately specified. 
 %
@@ -46,7 +46,7 @@ function obj = ApplyFunction(obj,fun,Selections)
 
 
 if nargin < 3
-  Selections = 'all';
+  Selections = '';
 end
 
 % Check first input
@@ -65,7 +65,8 @@ end
 % Check other inputs
 if ~isa(fun,'function_handle')
   error('Input ''fun'' is not a valid function handle.')
-elseif ~(ischar(Selections) && strcmpi(Selections,'all')) && ...
+elseif ~(ischar(Selections) && isempty(Selections)) && ...
+       ~(ischar(Selections) && strcmpi(Selections,'all')) && ...
        ~(iscell(Selections) && all(cellfun(@ischar,Selections)))
   error('Invalid ''Selections'' input.')
 end
@@ -80,9 +81,11 @@ if IsDataset(obj)
   % Get signal group names
   [~,Groups] = GetSignalGroups(Data);
 
-  % If 'Selections' is specified as 'all'
-  if ~iscell(Selections)
-    Selections = Groups;  % all groups, including 'Time'
+  % If 'Selections' is not a list
+  if ~iscell(Selections) && strcmp(Selections,'all')
+    Selections = Groups;                           % all groups, including 'Time'
+  elseif isempty(Selections)
+    Selections = setdiff(Groups,'Time','stable');  % all groups except 'Time'
   end
 
   % Loop over selections
@@ -175,7 +178,7 @@ elseif IsSignalGroup(obj)
       Signals = ReplaceSignalInGroup(Signals,selection,y);
     end
 
-  else  % if 'all' specified
+  else  % if 'all', or no 'Selections' specified
 
     % Try the function two ways
     X = Signals.Values;
